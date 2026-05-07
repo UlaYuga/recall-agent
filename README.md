@@ -82,6 +82,7 @@ Product and delivery source of truth: tech spec, architecture, PRD, delivery pla
 
 ```bash
 cp .env.example .env
+make install-hooks
 make dev
 ```
 
@@ -95,6 +96,22 @@ The scaffold intentionally starts with safe placeholders. Fill `.env` with real 
 - `TELEGRAM_BOT_TOKEN`
 - `BASE_URL`
 - `DATABASE_URL`
+
+## Public Repository Safety
+
+The repository is intended to be public for hackathon review and portfolio use. Real API keys must stay outside git:
+
+- local development: `.env` only;
+- CI/deployments: GitHub or hosting secrets;
+- committed config: `.env.example` placeholders only.
+
+Before pushing, run:
+
+```bash
+make public-check
+```
+
+See [Security](docs/SECURITY.md) for the full policy.
 
 ## Docs
 

@@ -26,6 +26,17 @@ dev = [
 line-length = 100
 target-version = "py311"
 
+[tool.setuptools]
+packages = [
+  "app",
+  "app.agent",
+  "app.api",
+  "app.delivery",
+  "app.runway",
+  "app.telegram",
+  "app.workers",
+]
+
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"

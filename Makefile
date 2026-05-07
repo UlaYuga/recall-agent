@@ -1,4 +1,4 @@
-.PHONY: dev backend dashboard landing seed test lint demo
+.PHONY: dev backend dashboard landing seed test lint public-check install-hooks demo
 
 dev:
 	docker compose up --build
@@ -16,11 +16,17 @@ seed:
 	cd backend && python seeds/seed.py
 
 test:
-	cd backend && pytest
+	cd backend && uv run --python 3.11 --extra dev pytest
 
 lint:
-	cd backend && ruff check .
+	cd backend && uv run --python 3.11 --extra dev ruff check .
+
+public-check:
+	scripts/check-public-repo-safety.sh
+
+install-hooks:
+	git config core.hooksPath .githooks
+	chmod +x .githooks/pre-commit scripts/check-public-repo-safety.sh
 
 demo:
 	@echo "Run backend, dashboard and landing, then follow docs/DEMO.md"
-

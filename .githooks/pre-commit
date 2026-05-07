@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+scripts/check-public-repo-safety.sh
