@@ -16,10 +16,10 @@ seed:
 	cd backend && python seeds/seed.py
 
 test:
-	cd backend && uv run --python 3.11 --extra dev pytest
+	cd backend && PYTHONPATH=. uv run --python 3.11 --extra dev pytest
 
 lint:
-	cd backend && uv run --python 3.11 --extra dev ruff check .
+	cd backend && PYTHONPATH=. uv run --python 3.11 --extra dev ruff check .
 
 public-check:
 	scripts/check-public-repo-safety.sh
