@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Node
+node_modules/
+.next/
+out/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Local data and generated media
+*.db
+*.sqlite
+storage/
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.webm
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+

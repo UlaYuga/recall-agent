@@ -1,0 +1,25 @@
+[
+  {
+    "external_id": "br-001",
+    "name": "Lucas",
+    "country": "Brazil",
+    "currency": "BRL",
+    "preferred_language": "en",
+    "days_inactive": 14,
+    "total_deposits_amount": 1250,
+    "marketing_consent": true,
+    "video_personalization_consent": true
+  },
+  {
+    "external_id": "mx-001",
+    "name": "Sofia",
+    "country": "Mexico",
+    "currency": "MXN",
+    "preferred_language": "en",
+    "days_inactive": 9,
+    "total_deposits_amount": 220,
+    "marketing_consent": true,
+    "video_personalization_consent": true
+  }
+]
+
