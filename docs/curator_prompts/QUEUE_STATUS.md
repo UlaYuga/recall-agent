@@ -9,7 +9,6 @@ Timezone: MSK.
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
 | T-10 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:24 | `/agent/scan` + `/agent/decide` after T-07/T-08/T-09 PASS. Must wire classifier, offers, script generator and Campaign persistence. XLSX not updated. |
-| T-18 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:24 | Runway task store after T-15/T-17 PASS and T-05 models. Persist task metadata only; no video pipeline. XLSX not updated. |
 | T-19 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:24 | TTS pipeline after T-15/T-17 PASS. Generate/download mp3 via client boundary with mocked tests. No video concat/API. XLSX not updated. |
 
 ## Review
@@ -44,6 +43,7 @@ Timezone: MSK.
 | T-17 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:24 | PASS. Verified credit estimator only: video/image/TTS rate math, aggregate plan, process counter, no SDK calls, `pytest -q` included in 189 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-08 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:24 | PASS with coordinator test isolation fix. Verified script generator with injectable LLM boundary, B-03 fallback, prompt validation, forbidden-term fallback, visual prompt sanitization, no network in tests, `pytest -q` 189 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-09 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:24 | PASS. Verified deterministic offer matrix for all 6 classifier cohorts, structured `Offer`, unknown cohort error, no LLM/API/DB writes, `pytest -q` included in 189 passed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-18 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:33 | PASS. Verified Runway task store CRUD helpers on existing `RunwayTask` model, isolated SQLite tests, no SDK/video/TTS/API work, `pytest tests/test_task_store.py` 29 passed, task-scoped `ruff check`, `make public-check`. XLSX not updated. |
 
 ## Blocked
 
@@ -66,4 +66,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-10`, `T-18`, `T-19`.
+- Current active implementation prompts: `T-10`, `T-19`.
