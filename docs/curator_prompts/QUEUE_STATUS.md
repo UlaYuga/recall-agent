@@ -8,7 +8,6 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-14 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | Campaign detail UI after T-13 PASS. Design/UI task; video player + meta + delivery CTA. XLSX not updated. |
 | T-26 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | Reactivation page `/r/[campaign_id]` after T-25/T-21 PASS. Design/UI task; bilingual and tracking-aware. XLSX not updated. |
 | T-28 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | Metrics dashboard after T-27/T-13 PASS. Design/UI task; funnel, cohort table, ROI calculator. XLSX not updated. |
 
@@ -62,6 +61,7 @@ Timezone: MSK.
 | T-34 | done | Kimi K2.6 / documentation executor, reasoning medium | 2026-05-08 20:47 | PASS with coordinator overclaim fix. Verified README/ARCHITECTURE/DEMO/SUBMISSION draft docs, deploy URLs kept as TBD placeholders, no code/XLSX touched by task, `make public-check`, `git diff --check`. Corrected docs to mark T-28 metrics dashboard as pending. XLSX not updated. |
 | T-32 | done | Claude Code / Railway deploy, reasoning high | 2026-05-08 23:23 | PASS. Verified Railway backend deploy at `https://recall-agent-production-4dc7.up.railway.app`: `/health` HTTP 200 `{"status":"ok"}`, `/docs` HTTP 200, `/openapi.json` title `Recall API` version `0.1.0`; `docs/DEPLOY_RAILWAY.md` records URL/env checklist. `make public-check` passed. Local `docker build` not rerun because Docker daemon is unavailable, but deployed service is live. XLSX not updated. |
 | T-33-prep | done | DeepSeek/Kimi documentation executor, reasoning medium | 2026-05-08 23:30 | PASS. Verified `docs/DEPLOY_VERCEL.md` documents landing/dashboard Vercel project settings, Railway backend URL, env names, smoke checks, CORS reminder, and TBD placeholders. No real Vercel deploy performed; final T-33 remains pending until T-26 PASS. Added `.vercel/` to `.gitignore`. XLSX not updated. |
+| T-14 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-09 00:06 | PASS with coordinator delivery-gating fix. Verified campaign detail workspace, `GET /approval/{campaign_id}`, video status/generate helpers, delivery API helper, dashboard build, backend `pytest -q` 491 passed, `ruff check`, `make public-check`. Delivery CTA now requires `Campaign.ready`; `ready_blocked_delivery` shows blocked state instead of send action. XLSX not updated. |
 
 ## Blocked
 
@@ -84,4 +84,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-14`, `T-26`, `T-28`.
+- Current active implementation prompts: `T-26`, `T-28`.

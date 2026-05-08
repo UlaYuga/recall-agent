@@ -201,7 +201,8 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
   const qc = useQueryClient();
 
   const canGenerate = campaignStatus === 'approved';
-  const isReady = campaignStatus === 'ready' || campaignStatus === 'ready_blocked_delivery';
+  const canDeliver = campaignStatus === 'ready';
+  const isBlockedDelivery = campaignStatus === 'ready_blocked_delivery';
   const isDelivered = campaignStatus === 'delivered' || campaignStatus === 'converted';
 
   const {
@@ -386,7 +387,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
             </button>
           )}
 
-          {(isReady || isDelivered) && (
+          {(canDeliver || isDelivered) && (
             <button
               type="button"
               disabled={deliverM.isPending || isDelivered || !videoReady}
@@ -407,7 +408,13 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
             </button>
           )}
 
-          {!canGenerate && !isReady && !isDelivered && (
+          {isBlockedDelivery && (
+            <p className="text-xs text-orange-600 bg-orange-50 border border-orange-200 rounded px-3 py-1.5">
+              Delivery is blocked by consent or channel eligibility.
+            </p>
+          )}
+
+          {!canGenerate && !canDeliver && !isBlockedDelivery && !isDelivered && (
             <p className="text-xs text-gray-400 italic">
               Campaign must be <span className="font-medium">approved</span> before video generation.
             </p>
