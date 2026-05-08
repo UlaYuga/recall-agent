@@ -10,8 +10,6 @@ Timezone: MSK.
 |---|---|---|---|---|
 | T-10 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:24 | `/agent/scan` + `/agent/decide` after T-07/T-08/T-09 PASS. Must wire classifier, offers, script generator and Campaign persistence. XLSX not updated. |
 | T-19 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:24 | TTS pipeline after T-15/T-17 PASS. Generate/download mp3 via client boundary with mocked tests. No video concat/API. XLSX not updated. |
-| T-22 | active | GPT-5.3-Codex or GPT-5.4, reasoning medium-high | 2026-05-08 16:40 | Telegram bot scaffold after T-04 PASS. Independent while Claude tokens are unavailable. Do not touch T-10/T-19 dirty files. XLSX not updated. |
-| T-35 | active | ChatGPT / GPT-5.4, reasoning medium | 2026-05-08 16:40 | Risk register + ROI model docs. Independent documentation task while implementation tokens are constrained. XLSX not updated. |
 
 ## Review
 
@@ -46,6 +44,8 @@ Timezone: MSK.
 | T-08 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:24 | PASS with coordinator test isolation fix. Verified script generator with injectable LLM boundary, B-03 fallback, prompt validation, forbidden-term fallback, visual prompt sanitization, no network in tests, `pytest -q` 189 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-09 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:24 | PASS. Verified deterministic offer matrix for all 6 classifier cohorts, structured `Offer`, unknown cohort error, no LLM/API/DB writes, `pytest -q` included in 189 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-18 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:33 | PASS. Verified Runway task store CRUD helpers on existing `RunwayTask` model, isolated SQLite tests, no SDK/video/TTS/API work, `pytest tests/test_task_store.py` 29 passed, task-scoped `ruff check`, `make public-check`. XLSX not updated. |
+| T-35 | done | Kimi/Chinese model executor, reasoning medium | 2026-05-08 16:55 | PASS. Verified docs-only risk register and ROI model, no code/XLSX/T-19 files touched, `make public-check` passed. Docs are suitable for current architecture/submission narrative; final pre-submit polish may update actual deploy URLs/costs. XLSX not updated. |
+| T-22 | done | DeepSeek/GPT executor, reasoning medium-high | 2026-05-08 16:55 | PASS. Verified aiogram 3.x long-polling scaffold, `/start`, `/optin`, `/optout`, `/help`, safe import without token, task-scoped `pytest tests/test_telegram_bot.py` 24 passed, task-scoped `ruff check`, `make public-check`. Non-blocking: current schema has generic `consent_marketing_communications`, so T-23 must align Telegram delivery eligibility carefully. XLSX not updated. |
 
 ## Blocked
 
@@ -68,4 +68,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-10`, `T-19`, `T-22`, `T-35`.
+- Current active implementation prompts: `T-10`, `T-19`.
