@@ -2,13 +2,21 @@ services:
   backend:
     build:
       context: ./backend
+    command: python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     env_file:
       - .env
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - ./storage:/app/storage
+      - ./backend/storage:/app/storage
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
 
   dashboard:
     image: node:20-alpine
@@ -18,8 +26,14 @@ services:
       - "3000:3000"
     volumes:
       - ./dashboard:/app
+      - /app/node_modules
+      - /app/.next
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
 
   landing:
     image: node:20-alpine
@@ -29,6 +43,11 @@ services:
       - "3001:3000"
     volumes:
       - ./landing:/app
+      - /app/node_modules
+      - /app/.next
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8000
-
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
