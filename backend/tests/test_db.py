@@ -15,10 +15,9 @@ def mem_engine():
 
 def test_init_db_creates_tables(mem_engine) -> None:
     db.init_db(bind=mem_engine)
-    tables = inspect(mem_engine).get_table_names()
-    assert "player" in tables
-    assert "campaign" in tables
-    assert "trackingevent" in tables
+    tables = set(inspect(mem_engine).get_table_names())
+    required = {"player", "event", "campaign", "videoasset", "delivery", "tracking", "runwaytask"}
+    assert required.issubset(tables)
 
 
 def test_get_session_yields_session(monkeypatch, mem_engine) -> None:
