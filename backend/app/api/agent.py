@@ -6,7 +6,6 @@ GET  /agent/decide/{player_id} — full decision + 4-scene script for one player
 from __future__ import annotations
 
 import json
-import uuid
 from dataclasses import asdict
 from datetime import datetime, timezone
 from typing import Annotated, Any
@@ -19,17 +18,13 @@ from app.agent.offers import UnknownCohortError, select_offer
 from app.agent.script_generator import generate_script
 from app.db import get_session
 from app.models import Campaign, CampaignStatus, Player
+from app.workers.scheduler import _new_campaign_id, run_scan
 
 router = APIRouter()
 
-# A campaign in a terminal state is "done" — a new scan may create a fresh one.
 _TERMINAL: frozenset[CampaignStatus] = frozenset(
     {CampaignStatus.delivered, CampaignStatus.converted, CampaignStatus.rejected}
 )
-
-
-def _new_campaign_id() -> str:
-    return f"c_{uuid.uuid4().hex}"
 
 
 # ── POST /agent/scan ─────────────────────────────────────────────────────────
@@ -43,42 +38,7 @@ def scan(
 
     Idempotent: players that already have a non-terminal campaign are skipped.
     """
-    now = datetime.now(timezone.utc)
-    players = session.exec(select(Player)).all()
-
-    created = 0
-    skipped = 0
-
-    for player in players:
-        existing = session.exec(
-            select(Campaign).where(Campaign.player_id == player.player_id)
-        ).all()
-        if any(c.status not in _TERMINAL for c in existing):
-            skipped += 1
-            continue
-
-        result = classify_player(player, now=now)
-
-        try:
-            offer = select_offer(result.cohort, player)
-        except UnknownCohortError:
-            skipped += 1
-            continue
-
-        campaign = Campaign(
-            campaign_id=_new_campaign_id(),
-            player_id=player.player_id,
-            cohort=result.cohort,
-            status=CampaignStatus.draft,
-            risk_score=float(result.risk_score),
-            reasoning_json=json.dumps(result.reasoning),
-            offer_json=json.dumps(asdict(offer)),
-        )
-        session.add(campaign)
-        created += 1
-
-    session.commit()
-    return {"scanned": len(players), "created": created, "skipped": skipped}
+    return run_scan(session)
 
 
 # ── GET /agent/decide/{player_id} ────────────────────────────────────────────
