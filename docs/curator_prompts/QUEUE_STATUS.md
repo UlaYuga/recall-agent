@@ -8,7 +8,7 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-01 | active | ChatGPT #1 (Codex), GPT-5.3-Codex, reasoning medium | 2026-05-08 14:29 | Verify+align existing scaffold after T-00a/T-00b PASS. Issued before 15:00 because Alexander confirmed tokens are available and requested the task. Do not init repo from scratch; do not overwrite accepted B/C artifacts; XLSX not updated. |
+| - | - | - | - | None. |
 
 ## Review
 
@@ -29,6 +29,7 @@ Timezone: MSK.
 | B-04 | done | GLM-5.1 | 2026-05-08 13:17 | Verified `backend/app/runway/visual_hints.py`: compiles, imports, 18 game hints, 12 category hints, required B-01 labels/categories present, `no text`/`no logos` included, forbidden terms absent. Future T-16 must wire/import it. XLSX not updated by request. |
 | T-00a | done | Coordinator local (Codex) | 2026-05-08 14:25 | Reconciled seed path: accepted B-01 players moved via `git mv` into `backend/seeds/players.json` after intent-to-add because source was untracked; removed empty `backend/seed/`; verified player IDs match `backend/seeds/events.json`. XLSX not updated. |
 | T-00b | done | Coordinator local (Codex) | 2026-05-08 14:25 | Standardized Runway env naming on `RUNWAYML_API_SECRET` in `.env.example`, config and docs; added `docs/DECISIONS_LOG.md` entry; verified zero legacy env-name hits by target audit. XLSX not updated. |
+| T-01 | done | ChatGPT #1 (Codex), GPT-5.3-Codex, reasoning medium | 2026-05-08 14:37 | PASS. Verified scaffold structure/files, no legacy Runway env-name hits, seed IDs match, `.env` and generated media are ignored, `make public-check` passes, working tree clean. Executor made no extra changes beyond already checkpointed safety-script alignment. XLSX not updated. |
 
 ## Blocked
 
@@ -50,4 +51,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompt: `T-01`.
+- Next implementation prompt: `T-02` after T-01 PASS review.
