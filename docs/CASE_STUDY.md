@@ -28,11 +28,10 @@ Live URLs:
 targeted -> approved -> rendered -> delivered -> played -> clicked -> converted
 ```
 
-## Expected Demo Artifacts
+## Optional Visual Artifacts
 
 - Approval queue screenshot.
 - Campaign detail screenshot.
-- Telegram delivery capture.
+- Delivery adapter state or Telegram capture if a real send is approved.
 - Reactivation landing screenshot.
 - Metrics dashboard screenshot.
-

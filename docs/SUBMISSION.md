@@ -50,8 +50,8 @@ The pipeline treats Runway as an external vendor with latency, moderation, and c
 
 - **Working approval dashboard** with queue, filters, inline edit, and side-panel preview.
 - **End-to-end campaign path** from scan to delivery to conversion tracking.
-- **Generated personalized video postcard** with motion graphics and voiceover.
-- **Telegram delivery** with poster + inline button to personalized landing.
+- **Runway-ready personalized video postcard pipeline** with prompt safety, task storage, credit estimation, TTS, stitching, and fallback paths.
+- **Telegram delivery adapter** with consent gating and inline-button support; the deployed smoke test avoids real sends.
 - **Tracking API and ROI model** with funnel events, cohort assumptions, and an interactive dashboard.
 
 ## Safety and Compliance
@@ -112,12 +112,12 @@ The model stays positive even in the conservative scenario. Break-even uplift is
 > The project was smoke-tested end-to-end against the deployed services without screen recording.
 > A 2-minute walkthrough recording can be added later if needed.
 
-The planned demo video covers:
+An optional demo video can cover:
 1. Seed and scan (10s)
 2. Approval queue review (20s)
-3. Approve and trigger generation (10s)
+3. Approve and show the generation/status boundary (10s)
 4. Status polling and ready state (15s)
-5. Telegram delivery and landing (20s)
+5. Delivery adapter and landing (20s)
 6. Tracking and metrics (25s)
 
 See [docs/DEMO.md](DEMO.md) for the full demo script.
