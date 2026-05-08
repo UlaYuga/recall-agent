@@ -173,10 +173,9 @@ Active implementation. Completed tasks include:
 4. Runway SDK wrapper, TTS pipeline, and video generation (T-15, T-19, T-20, T-21).
 5. Telegram bot scaffold and delivery adapters (T-22, T-23, T-24).
 6. Landing scaffold and tracking API (T-25, T-27).
-7. Metrics dashboard (T-28).
-8. Documentation draft (T-34 — this update).
+7. Documentation draft (T-34 — this update).
 
-Pending: final deploy (T-32/T-33), end-to-end demo video.
+Pending: metrics dashboard (T-28), final deploy (T-32/T-33), end-to-end demo video.
 
 ## License
 

@@ -52,7 +52,7 @@ The pipeline treats Runway as an external vendor with latency, moderation, and c
 - **End-to-end campaign path** from scan to delivery to conversion tracking.
 - **Generated personalized video postcard** with motion graphics and voiceover.
 - **Telegram delivery** with poster + inline button to personalized landing.
-- **Tracking and ROI dashboard** with funnel, cohort breakdown, and interactive calculator.
+- **Tracking API and ROI model** with funnel events, cohort assumptions, and an interactive dashboard planned in T-28.
 
 ## Safety and Compliance
 

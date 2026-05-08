@@ -126,10 +126,10 @@ curl -X POST http://localhost:8000/track/deposit \
   -d '{"campaign_id": "cmp_001", "player_id": "p_001", "amount": 50, "currency": "USD"}'
 ```
 
-**1:50 — Metrics**
-> "Finally, the metrics dashboard shows funnel progression, cohort breakdown, and an interactive ROI calculator."
+**1:50 — Metrics / ROI**
+> "Finally, the tracking events feed the metrics layer. The ROI model shows the funnel, cohort assumptions, and conservative/base/aggressive scenarios. The dashboard view is finalized in T-28."
 
-Switch to Dashboard → Metrics tab.
+Switch to Dashboard → Metrics tab if T-28 is complete; otherwise show `docs/ROI_MODEL.md`.
 
 Show:
 - Big numbers: total sent, plays, CTR, reactivation rate, net revenue lift
