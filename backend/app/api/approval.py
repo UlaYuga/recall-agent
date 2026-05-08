@@ -330,3 +330,22 @@ def regenerate_script(
         "script": script,
         "updated_at": campaign.updated_at.isoformat() if campaign.updated_at else None,
     }
+
+
+# ── GET /approval/{campaign_id} ──────────────────────────────────────────────
+
+
+@router.get("/{campaign_id}")
+def get_campaign(
+    campaign_id: str,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, Any]:
+    """Return a single campaign with full player profile.
+
+    Returns the same shape as a queue item so the frontend can reuse types.
+    Must be defined after all literal routes (e.g. /queue) so FastAPI matches
+    those first.
+    """
+    campaign = _get_campaign(session, campaign_id)
+    player = _resolve_player(session, campaign.player_id)
+    return _build_queue_item(campaign, player)

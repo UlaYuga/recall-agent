@@ -109,6 +109,31 @@ export interface QueueFilters {
   status?: string;
 }
 
+// ── Video + Delivery types ─────────────────────────────────────────────────
+
+export interface VideoStatus {
+  campaign_id: string;
+  /** 'queued' | 'generating' | 'ready' | 'failed' */
+  status: string;
+  video_url?: string;
+  poster_url?: string;
+  runway_task_ids?: string[];
+}
+
+export interface DeliveryChannel {
+  channel: string;
+  status: string;
+  reason?: string | null;
+  message_id?: string | null;
+  recipient?: string | null;
+}
+
+export interface DeliveryResult {
+  campaign_id: string;
+  overall_status: string;
+  channels: DeliveryChannel[];
+}
+
 // ── Approval API ────────────────────────────────────────────────────────────
 
 export const approval = {
@@ -157,5 +182,38 @@ export const approval = {
       script: ScriptData;
       updated_at: string | null;
     }>(`/approval/${campaignId}/regenerate-script`, {});
+  },
+
+  getCampaign(campaignId: string): Promise<QueueItem> {
+    return api.get<QueueItem>(`/approval/${campaignId}`);
+  },
+};
+
+// ── Video API ───────────────────────────────────────────────────────────────
+
+export const video = {
+  /** Returns null when no video has been generated yet (404 from backend). */
+  status(campaignId: string): Promise<VideoStatus | null> {
+    return api
+      .get<VideoStatus>(`/video/status/${campaignId}`)
+      .catch((e: unknown) => {
+        if (e instanceof ApiError && e.status === 404) return null;
+        throw e;
+      });
+  },
+
+  generate(campaignId: string) {
+    return api.post<{ task_id: string; campaign_id: string; status: string }>(
+      '/video/generate',
+      { campaign_id: campaignId }
+    );
+  },
+};
+
+// ── Delivery API ────────────────────────────────────────────────────────────
+
+export const delivery = {
+  send(campaignId: string): Promise<DeliveryResult> {
+    return api.post<DeliveryResult>('/delivery/send', { campaign_id: campaignId });
   },
 };
