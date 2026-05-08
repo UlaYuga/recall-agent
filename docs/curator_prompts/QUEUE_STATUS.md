@@ -8,7 +8,6 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-33 | active | Coordinator local (Codex) / Vercel CLI | 2026-05-09 00:55 | Final Vercel deploy for landing + dashboard after T-29 PASS. Use local `.env` token only; do not commit secrets or `.vercel/`. XLSX not updated. |
 
 ## Review
 
@@ -64,6 +63,7 @@ Timezone: MSK.
 | T-26 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-09 00:18 | PASS with coordinator media URL fix. Verified public reactivation page `/r/[campaign_id]`, minimal `GET /public/r/{campaign_id}` card endpoint, EN/RU copy, tracking contract calls, loading/not-found/preparing/failed/ready states, `/storage` media serving for generated video/poster paths, landing build, backend `pytest -q` 504 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-28 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-09 00:33 | PASS with coordinator status fix. Verified `GET /metrics/dashboard`, metrics dashboard page, cohort table, funnel, ROI calculator aligned to `docs/ROI_MODEL.md`, dashboard build, backend `pytest -q` 510 passed, `ruff check`, `make public-check`, and `/metrics` HTTP 200 from local dev server. XLSX not updated. |
 | T-29 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-09 00:52 | PASS. Verified approval queue all-status tab, mobile dashboard nav, structured reject UX, campaign workspace navigation label, backend `status=all` filter, dashboard build, backend `pytest -q` 512 passed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-33 | done | Coordinator local (Codex) / Vercel CLI | 2026-05-09 01:07 | PASS with backend startup fix. Deployed dashboard `https://dashboard-ula-lab.vercel.app` and landing `https://landing-ula-lab.vercel.app`; disabled Vercel SSO protection; verified frontend routes, backend `/health`, `/approval/queue`, `/metrics/dashboard`, and CORS preflight. Added FastAPI lifespan `init_db()` so Railway DB-backed endpoints return 200 on fresh deploy. XLSX not updated. |
 
 ## Blocked
 
@@ -86,4 +86,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-33`.
+- Current active implementation prompts: none.

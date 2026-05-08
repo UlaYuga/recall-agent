@@ -2,8 +2,8 @@
 
 Vercel deploy documentation for the two frontend apps.
 
-> **Status:** prep only. Do NOT deploy until T-26 (reactivation page) is PASS.
-> Backend is already live at T-32.
+> **Status:** deployed and smoke-tested on 2026-05-09 MSK.
+> Backend is live from T-32.
 
 ---
 
@@ -16,6 +16,10 @@ Vercel deploy documentation for the two frontend apps.
 
 Both apps share the same backend API:
 - `NEXT_PUBLIC_API_URL=https://recall-agent-production-4dc7.up.railway.app`
+
+Production frontend URLs:
+- Landing: `https://landing-ula-lab.vercel.app`
+- Dashboard: `https://dashboard-ula-lab.vercel.app`
 
 ---
 
@@ -39,6 +43,7 @@ Set these in the Vercel project dashboard (Settings → Environment Variables):
 | Name | Value | Type |
 |---|---|---|
 | `NEXT_PUBLIC_API_URL` | `https://recall-agent-production-4dc7.up.railway.app` | Production |
+| `NEXT_PUBLIC_DASHBOARD_URL` | `https://dashboard-ula-lab.vercel.app` | Production |
 
 No secrets are required for the landing app. `NEXT_PUBLIC_API_URL` is a public backend endpoint.
 
@@ -106,7 +111,7 @@ Expected: build completes with `✓` and outputs to `.next/`.
 
 ---
 
-## Deploy Steps (execute after T-26 PASS)
+## Deploy Steps
 
 ### 1. Landing
 
@@ -142,23 +147,23 @@ vercel --prod
 
 ```bash
 # 1. Root returns 200
-curl -fsS "https://LANDING_URL_TBD/" >/dev/null
+curl -fsS "https://landing-ula-lab.vercel.app/" >/dev/null
 
 # 2. Case study page loads
-curl -fsS "https://LANDING_URL_TBD/case" >/dev/null
+curl -fsS "https://landing-ula-lab.vercel.app/case" >/dev/null
 
 # 3. Reactivation page loads (use a seeded campaign ID)
-curl -fsS "https://LANDING_URL_TBD/r/cmp_001" >/dev/null
+curl -fsS "https://landing-ula-lab.vercel.app/r/cmp_001" >/dev/null
 ```
 
 ### Dashboard
 
 ```bash
 # 1. Root (approval queue) loads
-curl -fsS "https://DASHBOARD_URL_TBD/" >/dev/null
+curl -fsS "https://dashboard-ula-lab.vercel.app/" >/dev/null
 
 # 2. Metrics page loads
-curl -fsS "https://DASHBOARD_URL_TBD/metrics" >/dev/null
+curl -fsS "https://dashboard-ula-lab.vercel.app/metrics" >/dev/null
 
 # 3. Can reach backend health (CORS must allow dashboard origin)
 curl -fsS "https://recall-agent-production-4dc7.up.railway.app/health" >/dev/null
@@ -169,9 +174,9 @@ curl -fsS "https://recall-agent-production-4dc7.up.railway.app/approval/queue" >
 
 ### Browser checks
 
-1. Open `https://LANDING_URL_TBD/` — hero renders, Cyrillic text is readable.
-2. Open `https://LANDING_URL_TBD/r/cmp_001` — video player placeholder + offer + CTA button loads.
-3. Open `https://DASHBOARD_URL_TBD/` — login gate appears; enter manager password.
+1. Open `https://landing-ula-lab.vercel.app/` — hero renders, Cyrillic text is readable.
+2. Open `https://landing-ula-lab.vercel.app/r/cmp_001` — video player placeholder + offer + CTA button loads.
+3. Open `https://dashboard-ula-lab.vercel.app/` — login gate appears; enter manager password.
 4. After login — approval queue table renders with player names, cohort badges, risk scores.
 5. Click a row — side panel opens with profile, script scenes, offer, action buttons.
 
@@ -181,18 +186,15 @@ curl -fsS "https://recall-agent-production-4dc7.up.railway.app/approval/queue" >
 
 The backend (`recall-agent-production-4dc7.up.railway.app`) must allow CORS from the Vercel origins.
 
-Current CORS config in `backend/app/main.py` should include:
+Current CORS config in `backend/app/main.py` allows local dashboard/landing origins and Vercel preview/production origins:
 
 ```python
-origins = [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "https://LANDING_URL_TBD",
-    "https://DASHBOARD_URL_TBD",
-]
+allow_origin_regex = r"^https://[a-z0-9-]+\.vercel\.app$"
 ```
 
-> After T-33 deploy, update the backend CORS allowlist with the real Vercel URLs and redeploy the backend if necessary.
+Verified CORS preflight from:
+- `https://landing-ula-lab.vercel.app`
+- `https://dashboard-ula-lab.vercel.app`
 
 ---
 
@@ -208,13 +210,9 @@ origins = [
 
 ## Production URLs
 
-> **Landing and dashboard Vercel URLs are TBD until T-33 real deploy.**
->
-> - Landing: `LANDING_URL_TBD`
-> - Dashboard: `DASHBOARD_URL_TBD`
-
-Backend URL (from T-32):
-- `https://recall-agent-production-4dc7.up.railway.app`
+- Landing: `https://landing-ula-lab.vercel.app`
+- Dashboard: `https://dashboard-ula-lab.vercel.app`
+- Backend: `https://recall-agent-production-4dc7.up.railway.app`
 
 ---
 

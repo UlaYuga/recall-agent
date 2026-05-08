@@ -127,9 +127,9 @@ curl -X POST http://localhost:8000/track/deposit \
 ```
 
 **1:50 — Metrics / ROI**
-> "Finally, the tracking events feed the metrics layer. The ROI model shows the funnel, cohort assumptions, and conservative/base/aggressive scenarios. The dashboard view is finalized in T-28."
+> "Finally, the tracking events feed the metrics layer. The ROI model shows the funnel, cohort assumptions, and conservative/base/aggressive scenarios."
 
-Switch to Dashboard → Metrics tab if T-28 is complete; otherwise show `docs/ROI_MODEL.md`.
+Switch to Dashboard → Metrics.
 
 Show:
 - Big numbers: total sent, plays, CTR, reactivation rate, net revenue lift
@@ -171,13 +171,13 @@ This demonstrates production resilience without waiting for the full render.
 
 ---
 
-## Deploy Demo Steps (TBD until T-32/T-33 PASS)
+## Deploy Demo Steps
 
-The following steps will be added after production deployment is verified:
+Production URLs verified on 2026-05-09 MSK:
 
-1. Replace `http://localhost:8000` with `BACKEND_URL_TBD` in all curl commands.
-2. Replace `http://localhost:3000` with `DASHBOARD_URL_TBD`.
-3. Replace `http://localhost:3001` with `LANDING_URL_TBD`.
+1. Use `https://recall-agent-production-4dc7.up.railway.app` for backend curl commands.
+2. Use `https://dashboard-ula-lab.vercel.app` for the dashboard walkthrough.
+3. Use `https://landing-ula-lab.vercel.app` for landing and reactivation pages.
 4. Record the demo against the deployed backend and landing.
 5. Upload the demo video to `DEMO_VIDEO_URL_TBD`.
 

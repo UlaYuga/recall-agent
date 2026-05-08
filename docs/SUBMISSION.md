@@ -52,7 +52,7 @@ The pipeline treats Runway as an external vendor with latency, moderation, and c
 - **End-to-end campaign path** from scan to delivery to conversion tracking.
 - **Generated personalized video postcard** with motion graphics and voiceover.
 - **Telegram delivery** with poster + inline button to personalized landing.
-- **Tracking API and ROI model** with funnel events, cohort assumptions, and an interactive dashboard planned in T-28.
+- **Tracking API and ROI model** with funnel events, cohort assumptions, and an interactive dashboard.
 
 ## Safety and Compliance
 
@@ -101,18 +101,14 @@ The model stays positive even in the conservative scenario. Break-even uplift is
 
 ## Deploy URLs
 
-> **Production endpoints are TBD until tasks T-32/T-33 PASS.**
->
-> - Backend API: `BACKEND_URL_TBD`
-> - Dashboard: `DASHBOARD_URL_TBD`
-> - Landing: `LANDING_URL_TBD`
-> - Demo video: `DEMO_VIDEO_URL_TBD`
-
-These placeholders will be replaced with verified URLs after Railway/Render backend deploy and Vercel landing/dashboard deploy are completed and smoke-tested.
+- Backend API: `https://recall-agent-production-4dc7.up.railway.app`
+- Dashboard: `https://dashboard-ula-lab.vercel.app`
+- Landing: `https://landing-ula-lab.vercel.app`
+- Demo video: `DEMO_VIDEO_URL_TBD`
 
 ## Demo Video
 
-> **Demo video URL is TBD until T-32/T-33 PASS and the screen recording is complete.**
+> **Demo video URL is TBD until the screen recording is complete.**
 >
 > Placeholder: `DEMO_VIDEO_URL_TBD`
 
@@ -128,9 +124,9 @@ See [docs/DEMO.md](DEMO.md) for the full demo script and fallback path.
 
 ## To Update After Deploy
 
-- [ ] Replace `BACKEND_URL_TBD` with verified Railway/Render URL.
-- [ ] Replace `DASHBOARD_URL_TBD` with verified Vercel dashboard URL.
-- [ ] Replace `LANDING_URL_TBD` with verified Vercel landing URL.
+- [x] Backend Railway URL verified.
+- [x] Dashboard Vercel URL verified.
+- [x] Landing Vercel URL verified.
 - [ ] Replace `DEMO_VIDEO_URL_TBD` with YouTube unlisted or Vimeo link.
 - [ ] Update GitHub repo URL if it changes.
 - [ ] Run `make public-check` one final time before submission.

@@ -127,13 +127,11 @@ See `.env.example` for placeholder values. Real secrets must never be committed.
 
 ## Deploy Status
 
-> **Production deploy URLs are TBD until tasks T-32/T-33 PASS.**
->
-> - Backend: `BACKEND_URL_TBD`
-> - Dashboard: `DASHBOARD_URL_TBD`
-> - Landing: `LANDING_URL_TBD`
+Production deploys verified on 2026-05-09 MSK:
 
-These placeholders will be replaced with verified deploy URLs after the backend (Railway/Render) and frontend (Vercel) deployment tasks complete.
+- Backend: `https://recall-agent-production-4dc7.up.railway.app`
+- Dashboard: `https://dashboard-ula-lab.vercel.app`
+- Landing: `https://landing-ula-lab.vercel.app`
 
 ## Public Repository Safety
 
@@ -173,9 +171,10 @@ Active implementation. Completed tasks include:
 4. Runway SDK wrapper, TTS pipeline, and video generation (T-15, T-19, T-20, T-21).
 5. Telegram bot scaffold and delivery adapters (T-22, T-23, T-24).
 6. Landing scaffold and tracking API (T-25, T-27).
-7. Documentation draft (T-34 — this update).
+7. Metrics dashboard and ROI calculator (T-28).
+8. Railway backend and Vercel frontend deploys (T-32, T-33).
 
-Pending: metrics dashboard (T-28), final deploy (T-32/T-33), end-to-end demo video.
+Pending: end-to-end demo video and final submission upload.
 
 ## License
 

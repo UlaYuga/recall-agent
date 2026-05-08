@@ -182,12 +182,10 @@ GET /metrics/dashboard            # Global metrics: total_sent, plays, ctr, depo
 | Charts | Recharts | 2.13+ | Uplift graphs |
 | Landing | Next.js | 14.2+ | Static export, Vercel deploy |
 
-## Deployment Placeholders
+## Deployment
 
-> **Production endpoints are TBD until tasks T-32/T-33 PASS.**
->
-> - Backend API: `BACKEND_URL_TBD`
-> - Dashboard: `DASHBOARD_URL_TBD`
-> - Landing: `LANDING_URL_TBD`
+Production endpoints verified on 2026-05-09 MSK:
 
-These will be updated after Railway/Render backend deploy and Vercel landing/dashboard deploy are verified.
+- Backend API: `https://recall-agent-production-4dc7.up.railway.app`
+- Dashboard: `https://dashboard-ula-lab.vercel.app`
+- Landing: `https://landing-ula-lab.vercel.app`
