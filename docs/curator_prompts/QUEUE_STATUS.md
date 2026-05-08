@@ -8,10 +8,9 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-13 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:02 | Approval queue UI after T-11/T-12 PASS. Design/UI task; must use frontend skills and verify responsive layout. XLSX not updated. |
-| T-25 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:02 | Landing scaffold + RU/EN content after backend baseline. Design/UI task; include lightweight video/poster strategy. XLSX not updated. |
-| T-27 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:02 | Tracking API after T-24/T-05 PASS. Backend-only; no UI. XLSX not updated. |
-| T-31 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:02 | Docker compose + Makefile after T-22/T-25 readiness. Can start backend/local dev compose parts now; coordinate with T-25 if landing changes. XLSX not updated. |
+| T-14 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | Campaign detail UI after T-13 PASS. Design/UI task; video player + meta + delivery CTA. XLSX not updated. |
+| T-26 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | Reactivation page `/r/[campaign_id]` after T-25/T-21 PASS. Design/UI task; bilingual and tracking-aware. XLSX not updated. |
+| T-28 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | Metrics dashboard after T-27/T-13 PASS. Design/UI task; funnel, cohort table, ROI calculator. XLSX not updated. |
 
 ## Review
 
@@ -56,6 +55,10 @@ Timezone: MSK.
 | T-11 | done | Claude Code or DeepSeek V4 Pro, reasoning high | 2026-05-08 19:34 | PASS. Verified approval queue/approve/reject/edit/regenerate API, draft + pending_approval queue behavior, reject reason merge, no schema churn, `pytest -q` 429 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-21 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:02 | PASS with coordinator contract fix. Verified `POST /video/generate` body `{campaign_id}` and `GET /video/status/{task_id}`, response includes `task_id`, background pipeline boundary, task/campaign status lookup, `pytest -q` 471 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-24 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:02 | PASS with coordinator readiness fix. Verified `/delivery/send` orchestration, requires `Campaign.ready` and ready `VideoAsset`, consent/channel gates, mock Telegram guard, Delivery persistence, CRM writeback, `pytest -q` 471 passed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-27 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:24 | PASS. Verified tracking API `/track/play`, `/track/click`, `/track/deposit`, Tracking persistence, Delivery click timestamp, Campaign converted status, CRM mock writeback, `pytest -q` 491 passed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-31 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:24 | PASS with coordinator compose safety fix. Verified Makefile and compose workflow, `docker compose config` valid and safe placeholder env output, no legacy Runway env names, `pytest -q` 491 passed, `ruff check`, dashboard/landing builds, `make public-check`. XLSX not updated. |
+| T-25 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | PASS. Verified landing EN/RU content, responsive build, Cyrillic-safe font setup, lightweight placeholder media strategy, `landing npm run build`, `make public-check`. XLSX not updated. |
+| T-13 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | PASS. Verified approval queue UI, filters, table, side panel, edit/reject/approve/regenerate actions, backend reject-reason fix, `dashboard npm run build`, backend `pytest -q` 491 passed, `ruff check`, `make public-check`. XLSX not updated. |
 
 ## Blocked
 
@@ -78,4 +81,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-13`, `T-25`, `T-27`, `T-31`.
+- Current active implementation prompts: `T-14`, `T-26`, `T-28`.

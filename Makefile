@@ -40,6 +40,7 @@ demo:
 	@echo ""
 	@echo "Start all services:"
 	@echo "  make dev              # Docker Compose (all services)"
+	@echo "  docker compose --env-file .env up --build  # with local secrets"
 	@echo ""
 	@echo "Start individually:"
 	@echo "  make backend          # FastAPI on :8000"
