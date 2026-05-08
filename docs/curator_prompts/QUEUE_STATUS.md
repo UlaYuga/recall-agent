@@ -8,9 +8,8 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-11 | active | Claude Code or DeepSeek V4 Pro, reasoning high | 2026-05-08 19:18 | Approval API after T-10 PASS. Must expose queue/approve/edit/reject/regenerate over Campaign rows and decide how `draft` maps to approval queue. XLSX not updated. |
-| T-20 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 19:18 | Video pipeline after T-16/T-17/T-18/T-19 PASS. Media integration risk; no API routes. XLSX not updated. |
-| T-30 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 19:18 | APScheduler/manual scan worker after T-10 PASS. Backend-only scheduler wrapper around `/agent/scan` logic. XLSX not updated. |
+| T-21 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 19:34 | Video API after T-20/T-11 PASS. Must use TECH_SPEC contract: `POST /video/generate` body `{campaign_id}`, `GET /video/status/{task_id}`. XLSX not updated. |
+| T-24 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 19:34 | `/delivery/send` API after T-23 PASS. Backend-only delivery orchestration; avoid real Telegram sends for mock chat IDs. XLSX not updated. |
 
 ## Review
 
@@ -50,6 +49,9 @@ Timezone: MSK.
 | T-23 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 17:09 | PASS. Verified delivery adapters and eligibility service, generation vs delivery consent split, Telegram/email/landing/CRM adapters, task-scoped `pytest tests/test_delivery.py` 62 passed, task-scoped `ruff check`, `make public-check`. Non-blocking for T-24: seed `telegram_chat_id` values are mock strings, while `TelegramAdapter.send()` casts to int; T-24 should avoid real send for mock ids or handle this explicitly. XLSX not updated. |
 | T-19 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 19:18 | PASS. Verified TTS pipeline with injected RunwayClient, preflight `estimate_tts`, polling/backoff, mp3 save under gitignored storage, no video/image/API work, `pytest -q` 347 passed, `ruff check`, `make public-check`, zero legacy Runway env hits. XLSX not updated. |
 | T-10 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 19:18 | PASS. Verified `/agent/scan` and `/agent/decide/{player_id}`, idempotent Campaign persistence, classifier/offers/script generator wiring, `pytest -q` 347 passed, `ruff check`, `make public-check`, zero legacy Runway env hits. Non-blocking for T-11: scan creates `draft` campaigns; approval API must define queue status behavior. XLSX not updated. |
+| T-20 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 19:34 | PASS. Verified Runway video pipeline with safe prompts, credit estimates, task_store persistence, injected stitch boundary, no API routes, `pytest -q` 429 passed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-30 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 19:34 | PASS. Verified shared `run_scan`, APScheduler lifecycle, manual trigger, idempotency tests, `pytest -q` 429 passed after T-11 landed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-11 | done | Claude Code or DeepSeek V4 Pro, reasoning high | 2026-05-08 19:34 | PASS. Verified approval queue/approve/reject/edit/regenerate API, draft + pending_approval queue behavior, reject reason merge, no schema churn, `pytest -q` 429 passed, `ruff check`, `make public-check`. XLSX not updated. |
 
 ## Blocked
 
@@ -72,4 +74,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-11`, `T-20`, `T-30`.
+- Current active implementation prompts: `T-21`, `T-24`.
