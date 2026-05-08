@@ -20,11 +20,11 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
   if (!authed) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white border border-gray-200 rounded-lg p-8 w-full max-w-sm shadow-sm">
+      <div className="min-h-screen bg-char flex items-center justify-center p-4">
+        <div className="bg-graph border border-edge rounded-lg p-8 w-full max-w-sm">
           <div className="mb-6">
-            <h1 className="text-lg font-semibold text-gray-900">Recall</h1>
-            <p className="text-sm text-gray-500 mt-0.5">CRM Manager Access</p>
+            <h1 className="text-lg font-semibold text-text tracking-tight">Recall</h1>
+            <p className="text-sm text-sub mt-0.5">CRM Manager Access</p>
           </div>
           <form
             onSubmit={(e) => {
@@ -38,7 +38,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
             }}
           >
             <label
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-dim mb-1"
               htmlFor="pw"
             >
               Password
@@ -48,7 +48,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
               name="manager-password"
               type="password"
               autoComplete="current-password"
-              className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-edge rounded px-3 py-2 text-sm bg-ink text-text focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -56,13 +56,13 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
               }}
             />
             {error && (
-              <p className="text-red-600 text-xs mt-1" role="alert">
+              <p className="text-fail text-xs mt-1" role="alert">
                 {error}
               </p>
             )}
             <button
               type="submit"
-              className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+              className="mt-4 w-full bg-accent hover:bg-accent/80 text-ink text-sm font-semibold py-2 rounded focus:outline-none focus:ring-2 focus:ring-accent transition-colors"
             >
               Sign in
             </button>

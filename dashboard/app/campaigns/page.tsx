@@ -30,25 +30,25 @@ const STATUS_TABS: { value: StatusTab; label: string }[] = [
 // ── Visual helpers ────────────────────────────────────────────────────────
 
 const COHORT_CHIP: Record<string, string> = {
-  vip_at_risk: 'bg-purple-100 text-purple-800',
-  high_value_dormant: 'bg-red-100 text-red-700',
-  lapsed_loyal: 'bg-amber-100 text-amber-800',
-  post_event: 'bg-blue-100 text-blue-700',
-  first_deposit_no_return: 'bg-teal-100 text-teal-700',
-  casual_dormant: 'bg-gray-100 text-gray-600',
+  vip_at_risk:              'bg-accent/10 text-accent',
+  high_value_dormant:       'bg-fail/10 text-fail',
+  lapsed_loyal:             'bg-warn/10 text-warn',
+  post_event:               'bg-info/10 text-info',
+  first_deposit_no_return:  'bg-pass/10 text-pass',
+  casual_dormant:           'bg-line text-dim',
 };
 
 const STATUS_CHIP: Record<string, string> = {
-  draft: 'bg-gray-100 text-gray-600',
-  pending_approval: 'bg-blue-100 text-blue-700',
-  approved: 'bg-green-100 text-green-700',
-  rejected: 'bg-red-100 text-red-600',
-  generating: 'bg-yellow-100 text-yellow-700',
-  generation_failed: 'bg-red-100 text-red-600',
-  ready: 'bg-green-100 text-green-700',
-  ready_blocked_delivery: 'bg-orange-100 text-orange-700',
-  delivered: 'bg-teal-100 text-teal-700',
-  converted: 'bg-emerald-100 text-emerald-800',
+  draft:                  'bg-line text-dim',
+  pending_approval:       'bg-info/10 text-info',
+  approved:               'bg-pass/10 text-pass',
+  rejected:               'bg-fail/10 text-fail',
+  generating:             'bg-warn/10 text-warn',
+  generation_failed:      'bg-fail/10 text-fail',
+  ready:                  'bg-accent/10 text-accent',
+  ready_blocked_delivery: 'bg-warn/10 text-warn',
+  delivered:              'bg-pass/10 text-pass',
+  converted:              'bg-accent/10 text-accent',
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -69,9 +69,9 @@ function cohortLabel(c: string): string {
 }
 
 function riskClass(score: number): string {
-  if (score >= 70) return 'text-red-600 font-semibold';
-  if (score >= 40) return 'text-amber-600 font-medium';
-  return 'text-green-600';
+  if (score >= 70) return 'text-fail font-semibold';
+  if (score >= 40) return 'text-warn font-medium';
+  return 'text-pass';
 }
 
 function fmtDate(iso: string | null): string {
@@ -135,10 +135,10 @@ export default function CampaignsPage() {
                 aria-pressed={active}
                 className={[
                   'px-3 py-1.5 rounded text-xs font-medium transition-colors',
-                  'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1',
+                  'focus:outline-none focus:ring-2 focus:ring-accent',
                   active
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50',
+                    ? 'bg-accent text-ink font-semibold'
+                    : 'bg-char border border-edge text-dim hover:bg-graph',
                 ].join(' ')}
               >
                 {tab.label}
@@ -149,7 +149,7 @@ export default function CampaignsPage() {
 
         {/* Cohort select */}
         <div className="flex items-center gap-1.5">
-          <Filter size={13} className="text-gray-400 flex-none" aria-hidden="true" />
+          <Filter size={13} className="text-sub flex-none" aria-hidden="true" />
           <label htmlFor="cohort-filter" className="sr-only">
             Filter by cohort
           </label>
@@ -157,7 +157,7 @@ export default function CampaignsPage() {
             id="cohort-filter"
             value={cohortFilter}
             onChange={(e) => setCohortFilter(e.target.value)}
-            className="text-xs border border-gray-200 rounded px-2 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-xs border border-edge rounded px-2 py-1.5 bg-char text-dim focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <option value="">All cohorts</option>
             {ALL_COHORTS.map((c) => (
@@ -170,7 +170,7 @@ export default function CampaignsPage() {
 
         {/* Min risk */}
         <div className="flex items-center gap-1.5">
-          <label htmlFor="risk-min" className="text-xs text-gray-500 whitespace-nowrap">
+          <label htmlFor="risk-min" className="text-xs text-sub whitespace-nowrap">
             Min risk
           </label>
           <input
@@ -184,14 +184,14 @@ export default function CampaignsPage() {
             onChange={(e) =>
               setRiskMin(e.target.value === '' ? '' : Number(e.target.value))
             }
-            className="w-16 text-xs border border-gray-200 rounded px-2 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-16 text-xs border border-edge rounded px-2 py-1.5 bg-char text-dim focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
         {/* Count + refresh */}
         <div className="ml-auto flex items-center gap-2">
           {!isLoading && !isError && (
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-sub">
               {items.length} item{items.length !== 1 ? 's' : ''}
             </span>
           )}
@@ -200,7 +200,7 @@ export default function CampaignsPage() {
             onClick={() => void refetch()}
             disabled={isFetching}
             aria-label="Refresh queue"
-            className="p-1.5 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-40 transition-colors"
+            className="p-1.5 rounded text-sub hover:text-dim hover:bg-graph focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40 transition-colors"
           >
             <RefreshCw
               size={14}
@@ -212,18 +212,18 @@ export default function CampaignsPage() {
       </div>
 
       {/* ── Table ────────────────────────────────────────────────── */}
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <div className="bg-graph border border-edge rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm min-w-[680px]">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
+              <tr className="bg-ink border-b border-edge">
                 {(
                   ['Player', 'Cohort', 'Risk', 'Offer', 'Status', 'Created', ''] as const
                 ).map((h, i) => (
                   <th
                     key={i}
                     scope="col"
-                    className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap"
+                    className="text-left px-4 py-2.5 text-xs font-semibold text-sub uppercase tracking-wide whitespace-nowrap"
                   >
                     {h || <span className="sr-only">Review</span>}
                   </th>
@@ -231,17 +231,17 @@ export default function CampaignsPage() {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-edge">
               {isLoading ? (
                 <tr>
                   <td colSpan={7} className="py-14 text-center">
                     <div className="flex flex-col items-center gap-2">
                       <Loader2
                         size={24}
-                        className="text-blue-400 animate-spin"
+                        className="text-info animate-spin"
                         aria-hidden="true"
                       />
-                      <span className="text-xs text-gray-400">Loading campaigns…</span>
+                      <span className="text-xs text-sub">Loading campaigns…</span>
                     </div>
                   </td>
                 </tr>
@@ -251,19 +251,19 @@ export default function CampaignsPage() {
                     <div className="flex flex-col items-center gap-2 text-center px-6">
                       <AlertCircle
                         size={24}
-                        className="text-red-400"
+                        className="text-fail"
                         aria-hidden="true"
                       />
-                      <p className="text-sm font-medium text-red-600">
+                      <p className="text-sm font-medium text-fail">
                         Failed to load queue
                       </p>
-                      <p className="text-xs text-gray-400 max-w-xs">
+                      <p className="text-xs text-sub max-w-xs">
                         {error instanceof Error ? error.message : 'Unknown error'}
                       </p>
                       <button
                         type="button"
                         onClick={() => void refetch()}
-                        className="mt-1 text-xs text-blue-600 hover:underline focus:outline-none focus:ring-1 focus:ring-blue-500 rounded"
+                        className="mt-1 text-xs text-accent hover:underline focus:outline-none focus:ring-1 focus:ring-accent rounded"
                       >
                         Retry
                       </button>
@@ -276,11 +276,11 @@ export default function CampaignsPage() {
                     <div className="flex flex-col items-center gap-3 text-center px-6">
                       <ClipboardList
                         size={28}
-                        className="text-gray-300"
+                        className="text-mute"
                         aria-hidden="true"
                       />
-                      <p className="text-sm font-medium text-gray-500">Queue is empty</p>
-                      <p className="text-xs text-gray-400 max-w-xs">
+                      <p className="text-sm font-medium text-dim">Queue is empty</p>
+                      <p className="text-xs text-sub max-w-xs">
                         POST /agent/scan to generate campaign drafts, then they will
                         appear here.
                       </p>
@@ -306,16 +306,16 @@ export default function CampaignsPage() {
                       aria-pressed={isSelected}
                       className={[
                         'cursor-pointer transition-colors',
-                        'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500',
-                        isSelected ? 'bg-blue-50' : 'hover:bg-gray-50',
+                        'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent',
+                        isSelected ? 'bg-graph' : 'hover:bg-ink',
                       ].join(' ')}
                     >
                       {/* Player */}
                       <td className="px-4 py-3 whitespace-nowrap">
-                        <div className="text-xs font-medium text-gray-900">
+                        <div className="text-xs font-medium text-text">
                           {item.first_name}
                         </div>
-                        <div className="text-xs text-gray-400">
+                        <div className="text-xs text-sub">
                           {item.country} · {item.currency}
                         </div>
                       </td>
@@ -325,7 +325,7 @@ export default function CampaignsPage() {
                         <span
                           className={[
                             'inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium',
-                            COHORT_CHIP[item.cohort] ?? 'bg-gray-100 text-gray-600',
+                            COHORT_CHIP[item.cohort] ?? 'bg-line text-dim',
                           ].join(' ')}
                         >
                           {cohortLabel(item.cohort)}
@@ -345,7 +345,7 @@ export default function CampaignsPage() {
 
                       {/* Offer */}
                       <td className="px-4 py-3 max-w-[160px]">
-                        <span className="text-xs text-gray-700 truncate block">
+                        <span className="text-xs text-dim truncate block">
                           {parseOfferLabel(item.offer_json)}
                         </span>
                       </td>
@@ -355,7 +355,7 @@ export default function CampaignsPage() {
                         <span
                           className={[
                             'inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium',
-                            STATUS_CHIP[item.status] ?? 'bg-gray-100 text-gray-600',
+                            STATUS_CHIP[item.status] ?? 'bg-line text-dim',
                           ].join(' ')}
                         >
                           {STATUS_LABEL[item.status] ?? item.status}
@@ -364,13 +364,13 @@ export default function CampaignsPage() {
 
                       {/* Created */}
                       <td className="px-4 py-3 whitespace-nowrap">
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-sub">
                           {fmtDate(item.created_at)}
                         </span>
                       </td>
 
                       {/* Arrow */}
-                      <td className="px-4 py-3 w-8 text-gray-300 text-right">›</td>
+                      <td className="px-4 py-3 w-8 text-mute text-right">›</td>
                     </tr>
                   );
                 })

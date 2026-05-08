@@ -30,16 +30,16 @@ import {
 const VIDEO_POLL_STATUSES = new Set(['queued', 'generating']);
 
 const STATUS_CHIP: Record<string, string> = {
-  draft: 'bg-gray-100 text-gray-600',
-  pending_approval: 'bg-blue-100 text-blue-700',
-  approved: 'bg-green-100 text-green-700',
-  rejected: 'bg-red-100 text-red-600',
-  generating: 'bg-yellow-100 text-yellow-700',
-  generation_failed: 'bg-red-100 text-red-600',
-  ready: 'bg-green-100 text-green-700',
-  ready_blocked_delivery: 'bg-orange-100 text-orange-700',
-  delivered: 'bg-teal-100 text-teal-700',
-  converted: 'bg-emerald-100 text-emerald-800',
+  draft:                  'bg-line text-dim',
+  pending_approval:       'bg-info/10 text-info',
+  approved:               'bg-pass/10 text-pass',
+  rejected:               'bg-fail/10 text-fail',
+  generating:             'bg-warn/10 text-warn',
+  generation_failed:      'bg-fail/10 text-fail',
+  ready:                  'bg-accent/10 text-accent',
+  ready_blocked_delivery: 'bg-warn/10 text-warn',
+  delivered:              'bg-pass/10 text-pass',
+  converted:              'bg-accent/10 text-accent',
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -118,9 +118,9 @@ function cohortLabel(c: string): string {
 }
 
 function riskClass(score: number): string {
-  if (score >= 70) return 'text-red-600 font-semibold';
-  if (score >= 40) return 'text-amber-600 font-medium';
-  return 'text-green-600';
+  if (score >= 70) return 'text-fail font-semibold';
+  if (score >= 40) return 'text-warn font-medium';
+  return 'text-pass';
 }
 
 // ── Section ───────────────────────────────────────────────────────────────────
@@ -137,13 +137,13 @@ function Section({
   const [open, setOpen] = useState(defaultOpen);
   const id = `ws-section-${title.replace(/\s+/g, '-').toLowerCase()}`;
   return (
-    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+    <div className="bg-graph border border-edge rounded-lg overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls={id}
-        className="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
+        className="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-sub uppercase tracking-wide hover:bg-char focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors"
       >
         <span>{title}</span>
         {open ? (
@@ -153,7 +153,7 @@ function Section({
         )}
       </button>
       {open && (
-        <div id={id} className="px-5 pb-5 pt-1 border-t border-gray-100">
+        <div id={id} className="px-5 pb-5 pt-1 border-t border-edge">
           {children}
         </div>
       )}
@@ -166,8 +166,8 @@ function Section({
 function ProfileRow({ label, value }: { label: string; value: string }) {
   return (
     <>
-      <dt className="text-gray-400">{label}</dt>
-      <dd className="text-gray-800 font-medium truncate" title={value}>
+      <dt className="text-sub">{label}</dt>
+      <dd className="text-text font-medium truncate" title={value}>
         {value}
       </dd>
     </>
@@ -179,11 +179,11 @@ function ProfileRow({ label, value }: { label: string; value: string }) {
 function SceneCard({ scene }: { scene: ScriptScene }) {
   return (
     <div className="space-y-0.5">
-      <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">
+      <span className="text-[10px] font-semibold uppercase tracking-wide text-sub">
         {SCENE_LABELS[scene.type] ?? scene.type}
       </span>
-      <p className="text-xs text-gray-800 leading-relaxed">{scene.text}</p>
-      <p className="text-[10px] text-gray-400 leading-relaxed">Visual: {scene.visual_brief}</p>
+      <p className="text-xs text-text leading-relaxed">{scene.text}</p>
+      <p className="text-[10px] text-sub leading-relaxed">Visual: {scene.visual_brief}</p>
     </div>
   );
 }
@@ -250,10 +250,10 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
   const videoGenerating = vs?.status === 'queued' || vs?.status === 'generating';
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+    <div className="bg-graph border border-edge rounded-lg overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
-        <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-edge">
+        <div className="flex items-center gap-2 text-xs font-semibold text-sub uppercase tracking-wide">
           <Video size={13} aria-hidden="true" />
           Video
         </div>
@@ -263,12 +263,12 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
               className={[
                 'inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium',
                 vs.status === 'ready'
-                  ? 'bg-green-100 text-green-700'
+                  ? 'bg-pass/10 text-pass'
                   : vs.status === 'failed'
-                    ? 'bg-red-100 text-red-600'
+                    ? 'bg-fail/10 text-fail'
                     : vs.status === 'queued' || vs.status === 'generating'
-                      ? 'bg-yellow-100 text-yellow-700'
-                      : 'bg-gray-100 text-gray-600',
+                      ? 'bg-warn/10 text-warn'
+                      : 'bg-line text-dim',
               ].join(' ')}
             >
               {vs.status}
@@ -279,7 +279,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
             onClick={() => void vsRefetch()}
             disabled={vsFetching || vsLoading}
             aria-label="Refresh video status"
-            className="p-1 rounded text-gray-400 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-40 transition-colors"
+            className="p-1 rounded text-sub hover:text-dim hover:bg-char focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40 transition-colors"
           >
             <RefreshCw
               size={13}
@@ -293,7 +293,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
       <div className="px-5 py-4 space-y-4">
         {/* Loading */}
         {vsLoading && (
-          <div className="flex items-center gap-2 text-xs text-gray-400">
+          <div className="flex items-center gap-2 text-xs text-sub">
             <Loader2 size={13} className="animate-spin" aria-hidden="true" />
             Checking video status…
           </div>
@@ -301,17 +301,17 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
 
         {/* Error */}
         {vsError && (
-          <p className="text-xs text-amber-600">Could not load video status.</p>
+          <p className="text-xs text-warn">Could not load video status.</p>
         )}
 
         {/* No video yet */}
         {!vsLoading && !vs && !vsError && (
-          <p className="text-xs text-gray-400 italic">No video generated yet.</p>
+          <p className="text-xs text-sub italic">No video generated yet.</p>
         )}
 
         {/* Generating indicator */}
         {videoGenerating && (
-          <div className="flex items-center gap-2 text-xs text-yellow-700">
+          <div className="flex items-center gap-2 text-xs text-warn">
             <Loader2 size={13} className="animate-spin" aria-hidden="true" />
             Generation in progress — polling every 5 s…
           </div>
@@ -319,7 +319,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
 
         {/* Video failed */}
         {vs?.status === 'failed' && (
-          <div className="flex items-center gap-2 text-xs text-red-600">
+          <div className="flex items-center gap-2 text-xs text-fail">
             <AlertCircle size={13} aria-hidden="true" />
             Generation failed.
           </div>
@@ -327,7 +327,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
 
         {/* Video ready — player */}
         {videoReady && (
-          <div className="rounded-lg overflow-hidden bg-black aspect-video">
+          <div className="rounded-lg overflow-hidden bg-ink aspect-video">
             <video
               src={vs.video_url}
               poster={vs.poster_url ?? undefined}
@@ -340,7 +340,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
 
         {/* Poster only */}
         {!videoReady && vs?.poster_url && (
-          <div className="rounded-lg overflow-hidden bg-gray-100 aspect-video">
+          <div className="rounded-lg overflow-hidden bg-ink aspect-video">
             <img
               src={vs.poster_url}
               alt="Video poster"
@@ -353,7 +353,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
         {actionError && (
           <div
             role="alert"
-            className="flex items-start gap-2 text-xs text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2"
+            className="flex items-start gap-2 text-xs text-fail bg-fail/10 border border-fail/20 rounded px-3 py-2"
           >
             <AlertCircle size={13} className="flex-none mt-0.5" aria-hidden="true" />
             <span>{actionError}</span>
@@ -361,7 +361,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
         )}
 
         {deliveryResult && !actionError && (
-          <div className="text-xs text-teal-700 bg-teal-50 border border-teal-200 rounded px-3 py-2">
+          <div className="text-xs text-pass bg-pass/10 border border-pass/20 rounded px-3 py-2">
             {deliveryResult}
           </div>
         )}
@@ -376,7 +376,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
                 setActionError(null);
                 generateM.mutate();
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-accent text-ink hover:bg-accent/80 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-accent transition-colors"
             >
               {generateM.isPending || videoGenerating ? (
                 <Loader2 size={12} className="animate-spin" aria-hidden="true" />
@@ -397,7 +397,7 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
                 deliverM.mutate();
               }}
               title={!videoReady ? 'Video must be ready before delivery' : undefined}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-pass text-ink hover:bg-pass/80 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-pass transition-colors"
             >
               {deliverM.isPending ? (
                 <Loader2 size={12} className="animate-spin" aria-hidden="true" />
@@ -409,14 +409,14 @@ function VideoSection({ campaignId, campaignStatus }: VideoSectionProps) {
           )}
 
           {isBlockedDelivery && (
-            <p className="text-xs text-orange-600 bg-orange-50 border border-orange-200 rounded px-3 py-1.5">
+            <p className="text-xs text-warn bg-warn/10 border border-warn/20 rounded px-3 py-1.5">
               Delivery is blocked by consent or channel eligibility.
             </p>
           )}
 
           {!canGenerate && !canDeliver && !isBlockedDelivery && !isDelivered && (
-            <p className="text-xs text-gray-400 italic">
-              Campaign must be <span className="font-medium">approved</span> before video generation.
+            <p className="text-xs text-sub italic">
+              Campaign must be <span className="font-medium text-dim">approved</span> before video generation.
             </p>
           )}
         </div>
@@ -446,8 +446,8 @@ export function CampaignWorkspace({ campaignId }: CampaignWorkspaceProps) {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center gap-3 py-20 text-center">
-        <Loader2 size={28} className="text-blue-400 animate-spin" aria-hidden="true" />
-        <p className="text-sm text-gray-400">Loading campaign…</p>
+        <Loader2 size={28} className="text-info animate-spin" aria-hidden="true" />
+        <p className="text-sm text-sub">Loading campaign…</p>
       </div>
     );
   }
@@ -457,21 +457,21 @@ export function CampaignWorkspace({ campaignId }: CampaignWorkspaceProps) {
       <div className="space-y-4 max-w-xl">
         <Link
           href="/campaigns"
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 focus:outline-none focus:underline"
+          className="inline-flex items-center gap-1.5 text-sm text-sub hover:text-dim focus:outline-none focus:underline"
         >
           <ArrowLeft size={14} aria-hidden="true" />
-          Back to queue
+          Back to Queue
         </Link>
-        <div className="bg-white border border-gray-200 rounded-lg p-8 flex flex-col items-center gap-3 text-center">
-          <AlertCircle size={24} className="text-red-400" aria-hidden="true" />
-          <p className="text-sm font-medium text-red-600">Failed to load campaign</p>
-          <p className="text-xs text-gray-400">
+        <div className="bg-graph border border-edge rounded-lg p-8 flex flex-col items-center gap-3 text-center">
+          <AlertCircle size={24} className="text-fail" aria-hidden="true" />
+          <p className="text-sm font-medium text-fail">Failed to load campaign</p>
+          <p className="text-xs text-sub">
             {error instanceof Error ? error.message : `Campaign ${campaignId} not found`}
           </p>
           <button
             type="button"
             onClick={() => void refetch()}
-            className="mt-1 text-xs text-blue-600 hover:underline focus:outline-none focus:ring-1 focus:ring-blue-500 rounded"
+            className="mt-1 text-xs text-accent hover:underline focus:outline-none focus:ring-1 focus:ring-accent rounded"
           >
             Retry
           </button>
@@ -491,32 +491,30 @@ export function CampaignWorkspace({ campaignId }: CampaignWorkspaceProps) {
       <div className="flex items-start gap-3">
         <Link
           href="/campaigns"
-          className="flex-none mt-0.5 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 focus:outline-none focus:underline"
+          className="flex-none mt-0.5 inline-flex items-center gap-1.5 text-sm text-sub hover:text-dim focus:outline-none focus:underline"
         >
           <ArrowLeft size={14} aria-hidden="true" />
           Back to Queue
         </Link>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-base font-semibold text-gray-900">{p.first_name}</h1>
+            <h1 className="text-base font-semibold text-text">{p.first_name}</h1>
             <span
               className={[
                 'inline-flex items-center rounded px-2 py-0.5 text-xs font-medium',
-                STATUS_CHIP[campaign.status] ?? 'bg-gray-100 text-gray-600',
+                STATUS_CHIP[campaign.status] ?? 'bg-line text-dim',
               ].join(' ')}
             >
               {STATUS_LABEL[campaign.status] ?? campaign.status}
             </span>
-            <span
-              className="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-600"
-            >
+            <span className="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium bg-line text-dim">
               {cohortLabel(campaign.cohort)}
             </span>
             <span className={['text-xs tabular-nums', riskClass(campaign.risk_score)].join(' ')}>
               Risk {Math.round(campaign.risk_score)}
             </span>
           </div>
-          <p className="text-xs text-gray-400 mt-0.5">
+          <p className="text-xs text-sub mt-0.5">
             {p.country} · {p.currency} · {campaign.player_id} · {campaign.campaign_id}
           </p>
         </div>
@@ -557,12 +555,12 @@ export function CampaignWorkspace({ campaignId }: CampaignWorkspaceProps) {
       {/* ── Classifier reasoning ───────────────────────────────────────────── */}
       <Section title="Classifier Reasoning" defaultOpen={false}>
         {reasoning.length === 0 ? (
-          <p className="text-xs text-gray-400 italic mt-1">No reasoning recorded.</p>
+          <p className="text-xs text-sub italic mt-1">No reasoning recorded.</p>
         ) : (
           <ul className="space-y-1.5 mt-1">
             {reasoning.map((r, i) => (
-              <li key={i} className="flex gap-2 text-xs text-gray-700">
-                <span className="text-blue-400 flex-none mt-0.5" aria-hidden="true">›</span>
+              <li key={i} className="flex gap-2 text-xs text-dim">
+                <span className="text-info flex-none mt-0.5" aria-hidden="true">›</span>
                 {r}
               </li>
             ))}
@@ -573,29 +571,29 @@ export function CampaignWorkspace({ campaignId }: CampaignWorkspaceProps) {
       {/* ── Offer ──────────────────────────────────────────────────────────── */}
       <Section title="Offer">
         {!offer ? (
-          <p className="text-xs text-gray-400 italic mt-1">Offer data unavailable.</p>
+          <p className="text-xs text-sub italic mt-1">Offer data unavailable.</p>
         ) : (
           <div className="space-y-2 text-xs mt-1">
             <div className="flex gap-3">
-              <span className="bg-gray-100 text-gray-700 rounded px-2 py-0.5 font-medium uppercase text-[10px] tracking-wide">
+              <span className="bg-line text-dim rounded px-2 py-0.5 font-medium uppercase text-[10px] tracking-wide">
                 {offer.type}
               </span>
-              <span className="font-semibold text-gray-900">{offer.label}</span>
+              <span className="font-semibold text-text">{offer.label}</span>
             </div>
-            <p className="text-gray-700 leading-relaxed">{offer.copy}</p>
-            <p className="text-gray-400 leading-relaxed border-l-2 border-gray-200 pl-2">
+            <p className="text-dim leading-relaxed">{offer.copy}</p>
+            <p className="text-sub leading-relaxed border-l-2 border-edge pl-2">
               {offer.terms}
             </p>
-            <div className="flex gap-4 text-gray-500 pt-0.5">
+            <div className="flex gap-4 text-sub pt-0.5">
               <span>
-                Value: <span className="font-medium text-gray-800">{offer.value}</span>
+                Value: <span className="font-medium text-text">{offer.value}</span>
               </span>
               <span>
-                Expires: <span className="font-medium text-gray-800">{offer.expiry_days}d</span>
+                Expires: <span className="font-medium text-text">{offer.expiry_days}d</span>
               </span>
               {offer.game_label && (
                 <span>
-                  Game: <span className="font-medium text-gray-800">{offer.game_label}</span>
+                  Game: <span className="font-medium text-text">{offer.game_label}</span>
                 </span>
               )}
             </div>
@@ -606,30 +604,30 @@ export function CampaignWorkspace({ campaignId }: CampaignWorkspaceProps) {
       {/* ── Script ─────────────────────────────────────────────────────────── */}
       <Section title="Script (4 Scenes)">
         {!script ? (
-          <p className="text-xs text-gray-400 italic mt-1">Script not generated yet.</p>
+          <p className="text-xs text-sub italic mt-1">Script not generated yet.</p>
         ) : (
           <div className="space-y-3 mt-1">
             {script.scenes.map((scene) => (
               <SceneCard key={scene.id} scene={scene} />
             ))}
-            <div className="pt-2 border-t border-gray-100 space-y-1">
-              <p className="text-xs text-gray-500 leading-relaxed">
+            <div className="pt-2 border-t border-edge space-y-1">
+              <p className="text-xs text-sub leading-relaxed">
                 <span className="font-medium">Voiceover</span> (~{script.estimated_duration_sec}s ·{' '}
                 {script.tone}):{' '}
-                <span className="text-gray-700">{script.full_voiceover_text}</span>
+                <span className="text-dim">{script.full_voiceover_text}</span>
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-sub">
                 <span className="font-medium">CTA:</span>{' '}
-                <span className="text-gray-700">{script.cta_text}</span>
+                <span className="text-dim">{script.cta_text}</span>
               </p>
-              <p className="text-[10px] text-gray-400">Source: {script.source}</p>
+              <p className="text-[10px] text-sub">Source: {script.source}</p>
             </div>
           </div>
         )}
       </Section>
 
       {/* ── Meta footer ────────────────────────────────────────────────────── */}
-      <div className="text-[10px] text-gray-400 pb-4">
+      <div className="text-[10px] text-sub pb-4">
         Created {fmtDate(campaign.created_at)}
         {campaign.updated_at && campaign.updated_at !== campaign.created_at && (
           <> · Updated {fmtDate(campaign.updated_at)}</>

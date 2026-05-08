@@ -87,12 +87,12 @@ function cohortLabel(c: string): string {
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="bg-white border border-gray-200 rounded p-4">
-      <div className="text-xs text-gray-500 font-medium mb-1 leading-tight">{label}</div>
-      <div className="text-2xl font-semibold text-gray-900 tabular-nums leading-none">
+    <div className="bg-graph border border-edge rounded p-4">
+      <div className="text-xs text-sub font-medium mb-1 leading-tight">{label}</div>
+      <div className="text-2xl font-semibold text-text tabular-nums leading-none">
         {value}
       </div>
-      {sub && <div className="text-xs text-gray-400 mt-1">{sub}</div>}
+      {sub && <div className="text-xs text-sub mt-1">{sub}</div>}
     </div>
   );
 }
@@ -113,8 +113,8 @@ function SliderRow({
   return (
     <div className="space-y-1">
       <div className="flex justify-between items-baseline">
-        <span className="text-xs text-gray-600">{label}</span>
-        <span className="text-xs font-mono font-medium text-gray-900 tabular-nums">{display}</span>
+        <span className="text-xs text-sub">{label}</span>
+        <span className="text-xs font-mono font-medium text-text tabular-nums">{display}</span>
       </div>
       <input
         type="range"
@@ -123,7 +123,7 @@ function SliderRow({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-1.5 accent-blue-500 cursor-pointer"
+        className="w-full h-1.5 accent-accent cursor-pointer"
         aria-label={label}
       />
     </div>
@@ -135,7 +135,7 @@ function SliderRow({
 function CohortTable({ rows }: { rows: MetricsCohortRow[] }) {
   if (rows.length === 0) {
     return (
-      <div className="h-48 flex items-center justify-center text-sm text-gray-400">
+      <div className="h-48 flex items-center justify-center text-sm text-sub">
         No campaigns yet
       </div>
     );
@@ -144,11 +144,11 @@ function CohortTable({ rows }: { rows: MetricsCohortRow[] }) {
     <div className="overflow-x-auto">
       <table className="w-full text-xs">
         <thead>
-          <tr className="border-b border-gray-100">
+          <tr className="border-b border-edge">
             {['Cohort', 'Total', 'Approved', 'Delivered', 'Conv.', 'Rate'].map((h, i) => (
               <th
                 key={h}
-                className={`py-1.5 font-medium text-gray-500 ${i === 0 ? 'text-left pr-3' : 'text-right px-2'}`}
+                className={`py-1.5 font-medium text-sub ${i === 0 ? 'text-left pr-3' : 'text-right px-2'}`}
               >
                 {h}
               </th>
@@ -159,15 +159,15 @@ function CohortTable({ rows }: { rows: MetricsCohortRow[] }) {
           {rows.map((row) => {
             const rate = row.delivered > 0 ? row.converted / row.delivered : 0;
             return (
-              <tr key={row.cohort} className="border-b border-gray-50 hover:bg-gray-50">
-                <td className="py-1.5 pr-3 text-gray-800 font-medium">
+              <tr key={row.cohort} className="border-b border-edge hover:bg-ink">
+                <td className="py-1.5 pr-3 text-text font-medium">
                   {cohortLabel(row.cohort)}
                 </td>
-                <td className="py-1.5 px-2 text-right tabular-nums text-gray-700">{row.count}</td>
-                <td className="py-1.5 px-2 text-right tabular-nums text-gray-700">{row.approved}</td>
-                <td className="py-1.5 px-2 text-right tabular-nums text-gray-700">{row.delivered}</td>
-                <td className="py-1.5 px-2 text-right tabular-nums text-gray-700">{row.converted}</td>
-                <td className="py-1.5 pl-2 text-right tabular-nums text-gray-700">{fmtPct(rate)}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums text-dim">{row.count}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums text-dim">{row.approved}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums text-dim">{row.delivered}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums text-dim">{row.converted}</td>
+                <td className="py-1.5 pl-2 text-right tabular-nums text-dim">{fmtPct(rate)}</td>
               </tr>
             );
           })}
@@ -206,11 +206,11 @@ export default function MetricsPage() {
       <div className="max-w-6xl space-y-4">
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-20 bg-gray-100 rounded animate-pulse" />
+            <div key={i} className="h-20 bg-graph rounded animate-pulse" />
           ))}
         </div>
-        <div className="h-64 bg-gray-100 rounded animate-pulse" />
-        <div className="h-48 bg-gray-100 rounded animate-pulse" />
+        <div className="h-64 bg-graph rounded animate-pulse" />
+        <div className="h-48 bg-graph rounded animate-pulse" />
       </div>
     );
   }
@@ -218,7 +218,7 @@ export default function MetricsPage() {
   if (isError) {
     return (
       <div
-        className="bg-red-50 border border-red-200 rounded p-4 text-sm text-red-700"
+        className="bg-fail/10 border border-fail/20 rounded p-4 text-sm text-fail"
         role="alert"
       >
         Failed to load metrics:{' '}
@@ -273,14 +273,14 @@ export default function MetricsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
           {/* Funnel */}
-          <div className="bg-white border border-gray-200 rounded p-4">
-            <h2 className="text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wide">
+          <div className="bg-graph border border-edge rounded p-4">
+            <h2 className="text-xs font-semibold text-sub mb-3 uppercase tracking-wide">
               Reactivation Funnel
             </h2>
             {isEmpty ? (
-              <div className="h-52 flex items-center justify-center text-sm text-gray-400">
+              <div className="h-52 flex items-center justify-center text-sm text-sub">
                 No campaigns yet — run{' '}
-                <code className="mx-1 bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono">
+                <code className="mx-1 bg-line text-text px-1.5 py-0.5 rounded text-xs font-mono">
                   POST /agent/scan
                 </code>{' '}
                 to populate
@@ -294,28 +294,34 @@ export default function MetricsPage() {
                 >
                   <XAxis
                     type="number"
-                    tick={{ fontSize: 10 }}
+                    tick={{ fontSize: 10, fill: '#9a9aa1' }}
                     tickFormatter={(v: number) => fmtInt.format(v)}
                   />
                   <YAxis
                     dataKey="stage"
                     type="category"
                     width={76}
-                    tick={{ fontSize: 11 }}
+                    tick={{ fontSize: 11, fill: '#9a9aa1' }}
                   />
                   <Tooltip
                     formatter={(v: number) => [fmtInt.format(v), 'campaigns']}
-                    contentStyle={{ fontSize: 12 }}
+                    contentStyle={{
+                      background: '#15151a',
+                      border: '1px solid #1d1d23',
+                      color: '#ededee',
+                      fontSize: 12,
+                      borderRadius: '6px',
+                    }}
                   />
-                  <Bar dataKey="count" fill="#3b82f6" radius={[0, 2, 2, 0]} />
+                  <Bar dataKey="count" fill="#c5ff3d" radius={[0, 2, 2, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             )}
           </div>
 
           {/* Cohort breakdown */}
-          <div className="bg-white border border-gray-200 rounded p-4">
-            <h2 className="text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wide">
+          <div className="bg-graph border border-edge rounded p-4">
+            <h2 className="text-xs font-semibold text-sub mb-3 uppercase tracking-wide">
               Cohort Breakdown
             </h2>
             <CohortTable rows={cohort_breakdown} />
@@ -326,14 +332,14 @@ export default function MetricsPage() {
 
       {/* ── ROI Calculator ──────────────────────────────────────────────────── */}
       <section aria-label="ROI calculator">
-        <div className="bg-white border border-gray-200 rounded p-4">
+        <div className="bg-graph border border-edge rounded p-4">
 
           <div className="flex flex-wrap items-baseline gap-3 mb-4">
-            <h2 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+            <h2 className="text-xs font-semibold text-sub uppercase tracking-wide">
               ROI Calculator
             </h2>
             <span
-              className="text-xs text-gray-400 border border-gray-200 rounded px-1.5 py-0.5 cursor-help"
+              className="text-xs text-sub border border-edge rounded px-1.5 py-0.5 cursor-help"
               title="Simulation based on industry benchmarks (Engagehut, Idomoo/Entain). Actual results vary by operator, market, and player segment."
             >
               Industry benchmarks
@@ -353,15 +359,15 @@ export default function MetricsPage() {
                     className={[
                       'px-3 py-1 text-xs font-medium rounded border transition-colors capitalize',
                       scenario === key
-                        ? 'bg-blue-600 text-white border-blue-600'
-                        : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400',
+                        ? 'bg-accent text-ink border-accent font-semibold'
+                        : 'bg-char text-dim border-edge hover:border-line',
                     ].join(' ')}
                   >
                     {key}
                   </button>
                 ))}
                 {scenario === 'custom' && (
-                  <span className="self-center text-xs text-gray-400">custom</span>
+                  <span className="self-center text-xs text-sub">custom</span>
                 )}
               </div>
 
@@ -418,48 +424,48 @@ export default function MetricsPage() {
             {/* Outputs */}
             <div className="lg:col-span-2 space-y-3">
               <div className="grid grid-cols-2 gap-2">
-                <div className="bg-gray-50 rounded p-3">
-                  <div className="text-xs text-gray-500 mb-0.5">Incr. reactivated</div>
-                  <div className="text-lg font-semibold tabular-nums text-gray-900">
+                <div className="bg-ink rounded p-3">
+                  <div className="text-xs text-sub mb-0.5">Incr. reactivated</div>
+                  <div className="text-lg font-semibold tabular-nums text-text">
                     {fmtInt.format(roi.incr)}
                   </div>
-                  <div className="text-xs text-gray-400">players</div>
+                  <div className="text-xs text-sub">players</div>
                 </div>
-                <div className="bg-gray-50 rounded p-3">
-                  <div className="text-xs text-gray-500 mb-0.5">Campaign cost</div>
-                  <div className="text-lg font-semibold tabular-nums text-gray-900">
+                <div className="bg-ink rounded p-3">
+                  <div className="text-xs text-sub mb-0.5">Campaign cost</div>
+                  <div className="text-lg font-semibold tabular-nums text-text">
                     {fmtUSD(roi.cost)}
                   </div>
-                  <div className="text-xs text-gray-400">60-day window</div>
+                  <div className="text-xs text-sub">60-day window</div>
                 </div>
-                <div className={`rounded p-3 ${roi.net >= 0 ? 'bg-emerald-50' : 'bg-red-50'}`}>
-                  <div className="text-xs text-gray-500 mb-0.5">Net lift</div>
+                <div className={`rounded p-3 ${roi.net >= 0 ? 'bg-pass/10' : 'bg-fail/10'}`}>
+                  <div className="text-xs text-sub mb-0.5">Net lift</div>
                   <div
                     className={`text-lg font-semibold tabular-nums ${
-                      roi.net >= 0 ? 'text-emerald-700' : 'text-red-700'
+                      roi.net >= 0 ? 'text-pass' : 'text-fail'
                     }`}
                   >
                     {fmtUSD(roi.net)}
                   </div>
-                  <div className="text-xs text-gray-400">revenue − cost</div>
+                  <div className="text-xs text-sub">revenue − cost</div>
                 </div>
-                <div className={`rounded p-3 ${roi.roi >= 0 ? 'bg-emerald-50' : 'bg-red-50'}`}>
-                  <div className="text-xs text-gray-500 mb-0.5">ROI</div>
+                <div className={`rounded p-3 ${roi.roi >= 0 ? 'bg-pass/10' : 'bg-fail/10'}`}>
+                  <div className="text-xs text-sub mb-0.5">ROI</div>
                   <div
                     className={`text-lg font-semibold tabular-nums ${
-                      roi.roi >= 0 ? 'text-emerald-700' : 'text-red-700'
+                      roi.roi >= 0 ? 'text-pass' : 'text-fail'
                     }`}
                   >
                     {fmtX(roi.roi)}
                   </div>
-                  <div className="text-xs text-gray-400">net / cost</div>
+                  <div className="text-xs text-sub">net / cost</div>
                 </div>
               </div>
 
-              <div className="bg-blue-50 rounded p-3 space-y-1.5">
+              <div className="bg-info/10 rounded p-3 space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-600">Payback period</span>
-                  <span className="font-medium text-gray-900 tabular-nums">
+                  <span className="text-sub">Payback period</span>
+                  <span className="font-medium text-text tabular-nums">
                     {roi.payback_months !== null
                       ? roi.payback_months < 1
                         ? `${Math.round(roi.payback_months * 30.5)} days`
@@ -468,20 +474,20 @@ export default function MetricsPage() {
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-600">Annual net lift (×12 batches)</span>
-                  <span className="font-medium text-gray-900 tabular-nums">
+                  <span className="text-sub">Annual net lift (×12 batches)</span>
+                  <span className="font-medium text-text tabular-nums">
                     {fmtUSD(roi.annual_net)}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-600">Annual pipeline cost</span>
-                  <span className="font-medium text-gray-900 tabular-nums">
+                  <span className="text-sub">Annual pipeline cost</span>
+                  <span className="font-medium text-text tabular-nums">
                     {fmtUSD(roi.annual_cost)}
                   </span>
                 </div>
               </div>
 
-              <p className="text-xs text-gray-400 leading-relaxed">
+              <p className="text-xs text-sub leading-relaxed">
                 Simulation based on industry benchmarks. Actual results vary by
                 operator, market, and player segment.
               </p>

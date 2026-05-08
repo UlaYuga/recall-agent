@@ -23,29 +23,29 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-char">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-gray-900 focus:ring-2 focus:ring-blue-500"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded focus:bg-graph focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-text focus:ring-2 focus:ring-accent"
       >
         Skip to main content
       </a>
 
       {/* Sidebar — hidden on mobile, visible on sm+ */}
       <aside
-        className="hidden sm:flex w-52 flex-none bg-gray-900 flex-col"
+        className="hidden sm:flex w-52 flex-none bg-ink flex-col"
         aria-label="Sidebar"
       >
         {/* Brand */}
-        <div className="px-4 py-4 border-b border-gray-800">
+        <div className="px-4 py-4 border-b border-edge">
           <Link
             href="/"
-            className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded"
+            className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-accent rounded"
           >
-            <Zap size={16} className="text-blue-400 flex-none" aria-hidden="true" />
-            <span className="font-semibold text-white text-sm tracking-tight">Recall</span>
+            <Zap size={16} className="text-accent flex-none" aria-hidden="true" />
+            <span className="font-semibold text-text text-sm tracking-tight">Recall</span>
           </Link>
-          <p className="text-xs text-gray-500 mt-0.5 pl-6">CRM Dashboard</p>
+          <p className="text-xs text-sub mt-0.5 pl-6">CRM Dashboard</p>
         </div>
 
         {/* Nav */}
@@ -63,10 +63,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 aria-current={active ? 'page' : undefined}
                 className={[
                   'flex items-center gap-2.5 px-3 py-2 rounded text-sm font-medium transition-colors',
-                  'focus:outline-none focus:ring-2 focus:ring-blue-400',
+                  'focus:outline-none focus:ring-2 focus:ring-accent',
                   active
-                    ? 'bg-gray-700 text-white'
-                    : 'text-gray-400 hover:bg-gray-800 hover:text-gray-100',
+                    ? 'bg-graph text-text'
+                    : 'text-sub hover:bg-char hover:text-dim',
                 ].join(' ')}
               >
                 <Icon size={15} aria-hidden="true" className="flex-none" />
@@ -77,8 +77,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Footer: API URL */}
-        <div className="px-4 py-3 border-t border-gray-800">
-          <p className="text-xs text-gray-600 truncate" title="Backend API URL">
+        <div className="px-4 py-3 border-t border-edge">
+          <p className="text-xs text-mute truncate" title="Backend API URL">
             {process.env.NEXT_PUBLIC_API_URL ?? 'localhost:8000'}
           </p>
         </div>
@@ -87,30 +87,30 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="flex-none h-12 bg-white border-b border-gray-200 flex items-center px-4 sm:px-6 gap-3">
+        <header className="flex-none h-12 bg-ink border-b border-edge flex items-center px-4 sm:px-6 gap-3">
           {/* Brand mark — only visible on mobile where sidebar is hidden */}
           <Link
             href="/"
-            className="sm:hidden flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded flex-none"
+            className="sm:hidden flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-accent rounded flex-none"
             aria-label="Recall home"
           >
-            <Zap size={14} className="text-blue-500 flex-none" aria-hidden="true" />
-            <span className="font-semibold text-gray-900 text-sm">Recall</span>
+            <Zap size={14} className="text-accent flex-none" aria-hidden="true" />
+            <span className="font-semibold text-text text-sm">Recall</span>
           </Link>
 
-          <h1 className="text-sm font-semibold text-gray-900 flex-1 truncate">
+          <h1 className="text-sm font-semibold text-text flex-1 truncate">
             {getPageTitle(pathname)}
           </h1>
 
           <div className="flex items-center gap-4 flex-none">
             <span
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs text-gray-500"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs text-sub"
               aria-label="Backend status"
             >
-              <span className="w-2 h-2 rounded-full bg-gray-300 flex-none" aria-hidden="true" />
+              <span className="w-2 h-2 rounded-full bg-mute flex-none" aria-hidden="true" />
               Backend
             </span>
-            <span className="text-xs text-gray-500 hidden sm:inline">CRM Manager</span>
+            <span className="text-xs text-sub hidden sm:inline">CRM Manager</span>
           </div>
         </header>
 
@@ -126,7 +126,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Mobile bottom navigation — only visible below sm breakpoint */}
       <nav
-        className="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-gray-900 border-t border-gray-800 flex"
+        className="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-ink border-t border-edge flex"
         aria-label="Mobile navigation"
       >
         {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
@@ -138,9 +138,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               aria-current={active ? 'page' : undefined}
               className={[
                 'flex-1 flex flex-col items-center gap-0.5 py-2.5 text-center',
-                'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-400',
+                'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent',
                 'transition-colors',
-                active ? 'text-white' : 'text-gray-400',
+                active ? 'text-text' : 'text-sub',
               ].join(' ')}
             >
               <Icon size={18} aria-hidden="true" className="flex-none" />
