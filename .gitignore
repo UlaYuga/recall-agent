@@ -17,6 +17,7 @@ out/
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
+.vercel/
 
 # Environment
 .env
@@ -37,4 +38,3 @@ storage/
 .DS_Store
 .idea/
 .vscode/
-
