@@ -8,7 +8,7 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-03 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 14:45 | DB + SQLModel base after T-02 PASS. Deeper backend integration task routed to Claude Code. Do not start T-04/T-05/T-06. XLSX not updated. |
+| T-04 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 15:04 | Pydantic settings with `RUNWAYML_API_SECRET`, `TELEGRAM_BOT_TOKEN`, `ANTHROPIC_API_KEY`, `BASE_URL`, `DEMO_MANAGER_PASSWORD` after T-03 PASS. Do not start T-05/T-06. XLSX not updated. |
 
 ## Review
 
@@ -31,6 +31,7 @@ Timezone: MSK.
 | T-00b | done | Coordinator local (Codex) | 2026-05-08 14:25 | Standardized Runway env naming on `RUNWAYML_API_SECRET` in `.env.example`, config and docs; added `docs/DECISIONS_LOG.md` entry; verified zero legacy env-name hits by target audit. XLSX not updated. |
 | T-01 | done | ChatGPT #1 (Codex), GPT-5.3-Codex, reasoning medium | 2026-05-08 14:37 | PASS. Verified scaffold structure/files, no legacy Runway env-name hits, seed IDs match, `.env` and generated media are ignored, `make public-check` passes, working tree clean. Executor made no extra changes beyond already checkpointed safety-script alignment. XLSX not updated. |
 | T-02 | done | ChatGPT #1 (Codex), GPT-5.3-Codex, reasoning medium-high | 2026-05-08 14:45 | PASS. Verified FastAPI `/health`, CORS local and Vercel preview preflight tests, no legacy Runway env-name hits, `pytest -q` 4 passed, `ruff check` passed, `make public-check` passed. XLSX not updated. |
+| T-03 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:04 | PASS. Verified from clean remote clone after Claude Code pushed `eae02b0`: `init_db(bind=...)` creates current SQLModel tables, `get_session()` yields usable `Session`, `pytest -q` 6 passed, `ruff check` passed, `make public-check` passed, no legacy Runway env-name hits. XLSX not updated. |
 
 ## Blocked
 
@@ -53,4 +54,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompt: `T-03`.
+- Current active implementation prompt: `T-04`.
