@@ -16,7 +16,7 @@ RUNWAYML_API_SECRET=replace_me
 ANTHROPIC_API_KEY=replace_me
 OPENAI_API_KEY=replace_me
 TELEGRAM_BOT_TOKEN=replace_me
-DEMO_PASSWORD=replace_me
+DEMO_MANAGER_PASSWORD=replace_me
 ```
 
 ## Local Setup

@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     telegram_bot_token: str = ""
     base_url: str = "http://localhost:8000"
     database_url: str = "sqlite:///./recall.db"
-    demo_password: str = ""
+    demo_manager_password: str = ""
     storage_dir: str = "./storage"
 
     model_config = SettingsConfigDict(env_file=("../.env", ".env"), env_file_encoding="utf-8", extra="ignore")

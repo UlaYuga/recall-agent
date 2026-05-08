@@ -70,7 +70,7 @@ Concrete mismatches the coordinator must account for before issuing executor pro
 
 4. **Environment variable naming drift (minor but causes prompt/test mismatch):**
    - XLSX mentions `DEMO_AUTH_PASSWORD` in verification text for T-01/T-02.
-   - Repo uses `DEMO_PASSWORD` (`.env.example`, `backend/app/config.py`).
+   - Repo uses `DEMO_MANAGER_PASSWORD` (`.env.example`, `backend/app/config.py`). Renamed from `DEMO_PASSWORD` in T-04.
    - Coordinator should standardize future prompts on repo reality unless explicitly choosing to rename variables later.
 
 ## T-01 Preflight
@@ -112,7 +112,7 @@ make public-check
 
 **What must be checked before issuing T-02:**
 - Whether XLSX-required items are missing and should be added during T-02 (example: XLSX mentions CORS middleware; current `backend/app/main.py` has no CORS middleware).
-- Whether the expected env var names in the prompt match repo reality (`DEMO_PASSWORD` vs `DEMO_AUTH_PASSWORD`).
+- Whether the expected env var names in the prompt match repo reality (`DEMO_MANAGER_PASSWORD` — renamed from `DEMO_PASSWORD` in T-04).
 
 **Commands coordinator should ask executor to run (and paste results):**
 
@@ -167,7 +167,7 @@ Exact changes the coordinator should make when issuing T-01/T-02/T-05 (copy into
 - T-01: Replace “create/init repo” with “verify existing scaffold matches TECH_SPEC; do not recreate repo; list deviations and fix only missing scaffold items”.
 - T-01: Add “Run `make public-check` and paste output. Confirm `.env` is not tracked.”
 - T-02: Add “Backend already exists; verify `/health` works via `make dev` and `curl`. Only add missing pieces (e.g., CORS) if required by TECH_SPEC/XLSX; do not rewrite structure.”
-- T-02: Standardize env var naming in the prompt to repo reality (`DEMO_PASSWORD`, not `DEMO_AUTH_PASSWORD`) unless deliberately changing it as a separate task.
+- T-02: Standardized env var naming to repo reality (`DEMO_PASSWORD` at the time; renamed to `DEMO_MANAGER_PASSWORD` in T-04).
 - T-05: Replace XLSX seed paths with coordinator decision:
   - Use `backend/seeds/players.json` + `backend/seeds/events.json` + `backend/seeds/seed.py`.
 - T-05: Add a mandatory reconciliation step:
