@@ -8,7 +8,6 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-28 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | Metrics dashboard after T-27/T-13 PASS. Design/UI task; funnel, cohort table, ROI calculator. XLSX not updated. |
 
 ## Review
 
@@ -84,4 +83,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-28`.
+- Current active implementation prompts: none (T-28 complete, awaiting coordinator review).
