@@ -1,3 +1,5 @@
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from urllib.parse import urlsplit
 
 from fastapi import FastAPI
@@ -6,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.api import agent, approval, delivery, events, metrics, public, tracking, video
 from app.config import settings
+from app.db import init_db
 
 
 def _resolve_base_origin(base_url: str) -> str | None:
@@ -26,7 +29,13 @@ def _build_cors_origins() -> list[str]:
     return origins
 
 
-app = FastAPI(title="Recall API", version="0.1.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    init_db()
+    yield
+
+
+app = FastAPI(title="Recall API", version="0.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

@@ -8,6 +8,7 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
+| T-33 | active | Coordinator local (Codex) / Vercel CLI | 2026-05-09 00:55 | Final Vercel deploy for landing + dashboard after T-29 PASS. Use local `.env` token only; do not commit secrets or `.vercel/`. XLSX not updated. |
 
 ## Review
 
@@ -85,4 +86,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: none.
+- Current active implementation prompts: `T-33`.
