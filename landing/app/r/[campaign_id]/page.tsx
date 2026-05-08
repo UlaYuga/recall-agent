@@ -257,7 +257,10 @@ function DepositForm({ campaignId, currency, c }: DepositFormProps) {
           <div className="flex gap-2">
             <input
               id="deposit-amount"
+              name="deposit_amount"
               type="number"
+              inputMode="decimal"
+              autoComplete="off"
               min="10"
               step="1"
               placeholder={c.depositAmountPlaceholder}
@@ -452,7 +455,7 @@ export default function ReactivationPage() {
           <button
             type="button"
             onClick={handleCta}
-            className="w-full py-3.5 rounded-xl text-base font-bold bg-cta-gradient text-white hover:opacity-90 active:scale-[0.98] transition-all shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="w-full py-3.5 rounded-xl text-base font-bold bg-cta-gradient text-white hover:opacity-90 active:scale-[0.98] transition-[opacity,transform] shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             {c.ctaLabel}
           </button>

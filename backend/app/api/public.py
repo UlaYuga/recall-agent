@@ -18,6 +18,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlmodel import Session, select
 
+from app.api.media import public_media_url
+from app.config import settings
 from app.db import get_session
 from app.models import Campaign, Player, VideoAsset
 
@@ -70,6 +72,14 @@ def get_reactivation_card(
         preferred_language=player.preferred_language,
         currency=player.currency,
         offer_json=campaign.offer_json,
-        video_url=asset.video_url if asset and asset.status == "ready" else None,
-        poster_url=asset.poster_url if asset else None,
+        video_url=(
+            public_media_url(asset.video_url, storage_dir=settings.storage_dir)
+            if asset and asset.status == "ready"
+            else None
+        ),
+        poster_url=(
+            public_media_url(asset.poster_url, storage_dir=settings.storage_dir)
+            if asset
+            else None
+        ),
     )

@@ -2,6 +2,7 @@ from urllib.parse import urlsplit
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api import agent, approval, delivery, events, public, tracking, video
 from app.config import settings
@@ -43,6 +44,11 @@ app.include_router(video.router, prefix="/video", tags=["video"])
 app.include_router(delivery.router, prefix="/delivery", tags=["delivery"])
 app.include_router(tracking.router, prefix="/track", tags=["tracking"])
 app.include_router(public.router, prefix="/public", tags=["public"])
+app.mount(
+    "/storage",
+    StaticFiles(directory=settings.storage_dir, check_dir=False),
+    name="storage",
+)
 
 
 @app.get("/health")

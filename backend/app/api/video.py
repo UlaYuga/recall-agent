@@ -28,6 +28,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel
 from sqlmodel import Session, create_engine, select
 
+from app.api.media import public_media_url
 from app.config import settings
 from app.db import get_session
 from app.models import Campaign, CampaignStatus, RunwayTask, VideoAsset
@@ -104,8 +105,8 @@ def _apply_pipeline_result(
     ).first()
     if asset is None:
         asset = VideoAsset(campaign_id=campaign.campaign_id)
-    asset.video_url = result.video_path
-    asset.poster_url = result.poster_path
+    asset.video_url = public_media_url(result.video_path, storage_dir=settings.storage_dir)
+    asset.poster_url = public_media_url(result.poster_path, storage_dir=settings.storage_dir)
     asset.status = "ready"
     session.add(asset)
 
@@ -299,9 +300,13 @@ def status(
             "status": asset.status,
         }
         if asset.video_url:
-            payload["video_url"] = asset.video_url
+            payload["video_url"] = public_media_url(
+                asset.video_url, storage_dir=settings.storage_dir
+            )
         if asset.poster_url:
-            payload["poster_url"] = asset.poster_url
+            payload["poster_url"] = public_media_url(
+                asset.poster_url, storage_dir=settings.storage_dir
+            )
         # Include all sub-task IDs so callers can drill into individual tasks.
         sub_tasks = list_tasks(session, task_id)
         payload["runway_task_ids"] = [t.task_id for t in sub_tasks]

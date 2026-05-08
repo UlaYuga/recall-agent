@@ -10,6 +10,7 @@ from sqlmodel.pool import StaticPool
 
 from app.db import get_session
 from app.main import app
+from app.config import settings
 from app.models import Campaign, CampaignStatus, Player, VideoAsset
 
 
@@ -120,6 +121,37 @@ def test_found_with_ready_video(client: TestClient, session: Session) -> None:
     data = r.json()
     assert data["video_url"] == "https://cdn.example.com/cmp_pub/video.mp4"
     assert data["poster_url"] == "https://cdn.example.com/cmp_pub/poster.jpg"
+
+
+def test_local_storage_paths_are_returned_as_public_urls(
+    client: TestClient, session: Session, tmp_path, monkeypatch
+) -> None:
+    storage_dir = tmp_path / "storage"
+    campaign_dir = storage_dir / "cmp_pub"
+    campaign_dir.mkdir(parents=True)
+    video_path = campaign_dir / "video.mp4"
+    poster_path = campaign_dir / "poster.jpg"
+    video_path.write_bytes(b"mp4")
+    poster_path.write_bytes(b"jpg")
+    monkeypatch.setattr(settings, "storage_dir", str(storage_dir))
+
+    session.add(_player())
+    session.add(_campaign())
+    session.add(
+        VideoAsset(
+            campaign_id="cmp_pub",
+            status="ready",
+            video_url=str(video_path),
+            poster_url=str(poster_path),
+        )
+    )
+    session.commit()
+
+    r = client.get("/public/r/cmp_pub")
+    assert r.status_code == 200
+    data = r.json()
+    assert data["video_url"] == "/storage/cmp_pub/video.mp4"
+    assert data["poster_url"] == "/storage/cmp_pub/poster.jpg"
 
 
 def test_generating_video_url_not_exposed(client: TestClient, session: Session) -> None:
