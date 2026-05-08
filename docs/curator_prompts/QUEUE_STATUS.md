@@ -8,6 +8,7 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
+| SUBMISSION-FINAL | active | Kimi K2.6 / DeepSeek V4 Pro / GPT-5.4, reasoning medium-high | 2026-05-09 01:42 | Final submission copy/docs cleanup after deploy + E2E PASS. Demo video explicitly out of scope. XLSX not updated. |
 
 ## Review
 
@@ -87,4 +88,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: none.
+- Current active implementation prompts: `SUBMISSION-FINAL`.
