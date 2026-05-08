@@ -97,9 +97,14 @@ def _build_queue_item(campaign: Campaign, player: Player) -> dict[str, Any]:
 
 
 def _merge_reject_reason(campaign: Campaign, reason: str) -> str:
-    """Attach a reject reason to reasoning_json without destroying existing data."""
+    """Attach a reject reason to reasoning_json without destroying existing data.
+
+    reasoning_json may be a JSON list (classifier output) or a dict (previously
+    merged).  Normalise to a dict so reject_reason can be stored as a key.
+    """
     try:
-        data = json.loads(campaign.reasoning_json or "{}")
+        raw = json.loads(campaign.reasoning_json or "{}")
+        data: dict = raw if isinstance(raw, dict) else {}
     except (json.JSONDecodeError, TypeError):
         data = {}
     data["reject_reason"] = reason
