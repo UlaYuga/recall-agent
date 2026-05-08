@@ -10,7 +10,6 @@ Timezone: MSK.
 |---|---|---|---|---|
 | T-10 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:24 | `/agent/scan` + `/agent/decide` after T-07/T-08/T-09 PASS. Must wire classifier, offers, script generator and Campaign persistence. XLSX not updated. |
 | T-19 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:24 | TTS pipeline after T-15/T-17 PASS. Generate/download mp3 via client boundary with mocked tests. No video concat/API. XLSX not updated. |
-| T-23 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 17:04 | Delivery adapters + eligibility after T-22/T-05 PASS. Backend-only, no design, no T-10/T-19 dependency. Do not touch dirty T-19 files. XLSX not updated. |
 
 ## Review
 
@@ -47,6 +46,7 @@ Timezone: MSK.
 | T-18 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:33 | PASS. Verified Runway task store CRUD helpers on existing `RunwayTask` model, isolated SQLite tests, no SDK/video/TTS/API work, `pytest tests/test_task_store.py` 29 passed, task-scoped `ruff check`, `make public-check`. XLSX not updated. |
 | T-35 | done | Kimi/Chinese model executor, reasoning medium | 2026-05-08 16:55 | PASS. Verified docs-only risk register and ROI model, no code/XLSX/T-19 files touched, `make public-check` passed. Docs are suitable for current architecture/submission narrative; final pre-submit polish may update actual deploy URLs/costs. XLSX not updated. |
 | T-22 | done | DeepSeek/GPT executor, reasoning medium-high | 2026-05-08 16:55 | PASS. Verified aiogram 3.x long-polling scaffold, `/start`, `/optin`, `/optout`, `/help`, safe import without token, task-scoped `pytest tests/test_telegram_bot.py` 24 passed, task-scoped `ruff check`, `make public-check`. Non-blocking: current schema has generic `consent_marketing_communications`, so T-23 must align Telegram delivery eligibility carefully. XLSX not updated. |
+| T-23 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 17:09 | PASS. Verified delivery adapters and eligibility service, generation vs delivery consent split, Telegram/email/landing/CRM adapters, task-scoped `pytest tests/test_delivery.py` 62 passed, task-scoped `ruff check`, `make public-check`. Non-blocking for T-24: seed `telegram_chat_id` values are mock strings, while `TelegramAdapter.send()` casts to int; T-24 should avoid real send for mock ids or handle this explicitly. XLSX not updated. |
 
 ## Blocked
 
@@ -69,4 +69,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-10`, `T-19`, `T-23`.
+- Current active implementation prompts: `T-10`, `T-19`.
