@@ -87,7 +87,7 @@ class TestSanitizeVisualBrief:
     def test_xlsx_dod_example(self):
         result = sanitize_visual_brief("Pragmatic Play slot with face")
         assert "Pragmatic Play" not in result
-        assert "face" not in result.lower() or "no text" in result.lower()
+        assert "face" not in result.lower()
         assert "no text" in result
         assert "no logos" in result
 

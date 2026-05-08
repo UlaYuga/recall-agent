@@ -8,8 +8,9 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-07 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | Deterministic classifier after T-06 PASS. Must use seeded rich Player/Event data and explicit `now`; no LLM. XLSX not updated. |
-| T-16 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | Prompt safety + B-04 visual hints wiring after T-15 PASS and B-04 PASS. No credit/task/video pipeline work. XLSX not updated. |
+| T-08 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:05 | Script generator + B-03 wire after T-07 PASS. Use deterministic classifier cohort and fallback templates. No offers/API scan. XLSX not updated. |
+| T-09 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:05 | Offer rules after T-07 PASS. Deterministic per-cohort offer matrix only. No agent scan/API. XLSX not updated. |
+| T-17 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 16:05 | Credit estimator after T-15 PASS. Estimate-only Runway cost logic; no task store/video pipeline. XLSX not updated. |
 
 ## Review
 
@@ -38,6 +39,8 @@ Timezone: MSK.
 | T-06 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | PASS. Verified seed loader loads 7 players and 96 events, idempotency tests pass, `python seeds/seed.py` prints seeded counts, `pytest -q` included in 31 passed, `ruff check` passed, `make public-check` passed. XLSX not updated. |
 | T-15 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | PASS. Verified thin Runway SDK wrapper, `RUNWAYML_API_SECRET` validation, mocked SDK tests, `runwayml.omit` exists, no real Runway calls, `pytest -q` included in 31 passed, `ruff check` passed, `make public-check` passed. XLSX not updated. |
 | T-12 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | PASS with coordinator accessibility fix. Verified dashboard scaffold build, API helper, auth gate, app shell, route stubs, no T-13/T-14 wiring, `npm run build` passed. Added skip link and password input `name` before closing. XLSX not updated. |
+| T-07 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:05 | PASS. Verified deterministic classifier with explicit `now`, `ClassificationResult`, seeded cohort tests, no LLM, `pytest -q` 78 passed, `ruff check`, `make public-check`. Non-blocking: T-10 should pass explicit `now`. XLSX not updated. |
+| T-16 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 16:05 | PASS with coordinator safety fix. Verified prompt safety imports B-04 visual hints, removes forbidden brands/game titles/face/person terms, strict DoD for `Pragmatic Play slot with face`, `pytest -q` 78 passed, `ruff check`, `make public-check`. XLSX not updated. |
 
 ## Blocked
 
@@ -60,4 +63,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-07`, `T-16`.
+- Current active implementation prompts: `T-08`, `T-09`, `T-17`.

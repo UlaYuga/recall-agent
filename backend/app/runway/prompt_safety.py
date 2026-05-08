@@ -94,6 +94,10 @@ _FORBIDDEN_GAME_TITLES: tuple[str, ...] = (
 
 # Patterns that describe real faces or people.
 _FORBIDDEN_FACE_PATTERNS: tuple[str, ...] = (
+    r"\bface\b",
+    r"\bfaces\b",
+    r"\bperson\b",
+    r"\bpeople\b",
     r"\breal\s+face\b",
     r"\breal\s+person\b",
     r"\breal\s+people\b",
