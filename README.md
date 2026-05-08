@@ -2,7 +2,7 @@
 
 AI CRM reactivation pipeline for personalized video postcards.
 
-**Updated:** May 8, 2026
+**Updated:** May 9, 2026
 **Hackathon window:** May 8–11, 2026
 
 Recall is a hackathon PoC and portfolio case for an event-driven retention agent. It detects dormant users, prepares a human-approved campaign draft, generates motion-graphics video assets with Runway API, delivers through a Telegram PoC adapter, and tracks the path through a campaign landing page.
@@ -173,8 +173,9 @@ Active implementation. Completed tasks include:
 6. Landing scaffold and tracking API (T-25, T-27).
 7. Metrics dashboard and ROI calculator (T-28).
 8. Railway backend and Vercel frontend deploys (T-32, T-33).
+9. End-to-end smoke test (E2E-HERO-SMOKE): seed, scan, approve, track, metrics — all verified.
 
-Pending: end-to-end demo video and final submission upload.
+Demo video is optional and can be recorded later.
 
 ## License
 

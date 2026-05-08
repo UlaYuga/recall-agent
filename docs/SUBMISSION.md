@@ -92,7 +92,7 @@ The model stays positive even in the conservative scenario. Break-even uplift is
 
 ## Repository
 
-- GitHub: `https://github.com/axel/Recall` *(replace with actual URL after repo is public)*
+- GitHub: `https://github.com/UlaYuga/recall-agent.git`
 - README with local quickstart: [README.md](../README.md)
 - Architecture: [docs/ARCHITECTURE.md](ARCHITECTURE.md)
 - Demo script: [docs/DEMO.md](DEMO.md)
@@ -104,15 +104,15 @@ The model stays positive even in the conservative scenario. Break-even uplift is
 - Backend API: `https://recall-agent-production-4dc7.up.railway.app`
 - Dashboard: `https://dashboard-ula-lab.vercel.app`
 - Landing: `https://landing-ula-lab.vercel.app`
-- Demo video: `DEMO_VIDEO_URL_TBD`
 
-## Demo Video
+## Demo Video (Optional)
 
-> **Demo video URL is TBD until the screen recording is complete.**
+> **A demo screen recording is not required for submission.**
 >
-> Placeholder: `DEMO_VIDEO_URL_TBD`
+> The project was smoke-tested end-to-end against the deployed services without screen recording.
+> A 2-minute walkthrough recording can be added later if needed.
 
-The planned demo video is a 2-minute screen recording covering:
+The planned demo video covers:
 1. Seed and scan (10s)
 2. Approval queue review (20s)
 3. Approve and trigger generation (10s)
@@ -120,19 +120,52 @@ The planned demo video is a 2-minute screen recording covering:
 5. Telegram delivery and landing (20s)
 6. Tracking and metrics (25s)
 
-See [docs/DEMO.md](DEMO.md) for the full demo script and fallback path.
+See [docs/DEMO.md](DEMO.md) for the full demo script.
 
-## To Update After Deploy
+## E2E Smoke Test Results (2026-05-09 MSK)
 
+The hero path was verified on the deployed services:
+
+```bash
+# 1. Seed database
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/events/seed
+→ {"players":7,"events":96}
+
+# 2. Scan for dormant players
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/agent/scan
+→ {"scanned":7,"created":7,"skipped":0}
+
+# 3. Approve a campaign
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/approval/{cid}/approve
+→ {"status":"approved"}
+
+# 4. Tracking: play → click → deposit
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/track/play -d '{"campaign_id":"...","player_id":"p_001","watched_seconds":32}'
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/track/click -d '{"campaign_id":"...","player_id":"p_001","link_id":"watch_video"}'
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/track/deposit -d '{"campaign_id":"...","player_id":"p_001","amount":75,"currency":"BRL"}'
+→ All return {"status":"recorded"}
+
+# 5. Metrics funnel confirmed
+curl https://recall-agent-production-4dc7.up.railway.app/metrics/dashboard
+→ {"funnel":{"scanned":7,"approved":1,"delivered":1,"played":1,"clicked":1,"deposited":1}, ...}
+→ Funnel: 7 → 1 → 1 → 1 → 1 → 1
+
+# 6. All frontend pages return 200
+Dashboard: /, /campaigns, /campaigns/{id}, /metrics
+Landing:  /, /case, /r/{campaign_id}
+
+# 7. CORS preflight verified from both Vercel origins
+```
+
+## Submitted Checklist
+
+- [x] GitHub repo public: `https://github.com/UlaYuga/recall-agent.git`
 - [x] Backend Railway URL verified.
 - [x] Dashboard Vercel URL verified.
 - [x] Landing Vercel URL verified.
-- [ ] Replace `DEMO_VIDEO_URL_TBD` with YouTube unlisted or Vimeo link.
-- [ ] Update GitHub repo URL if it changes.
-- [ ] Run `make public-check` one final time before submission.
-- [ ] Verify `.env.example` contains only placeholders.
-- [ ] Confirm no real secrets, no generated media, no `.next` cache in git.
-- [ ] Update README "Deploy Status" section with live URLs.
-- [ ] Update `docs/ARCHITECTURE.md` "Deployment Placeholders" section with live URLs.
-- [ ] Update `docs/DEMO.md` "Deploy Demo Steps" with live URLs.
-- [ ] Smoke-test all three deployed services end-to-end.
+- [x] All 7 players seeded; 7 campaigns created via scan.
+- [x] Tracking play/click/deposit confirmed; metrics dashboard shows funnel 7→1→1→1→1→1.
+- [x] CORS preflight verified from dashboard and landing origins.
+- [x] `.env.example` contains only placeholders.
+- [x] No real secrets, no generated media, no `.next` cache in git.
+- [x] `make public-check` passes.

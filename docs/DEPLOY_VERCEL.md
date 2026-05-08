@@ -230,18 +230,19 @@ Verified CORS preflight from:
 
 ## Post-Deploy Checklist
 
-- [ ] Landing root returns 200
-- [ ] Landing `/case` returns 200
-- [ ] Landing `/r/cmp_001` returns 200
-- [ ] Dashboard root returns 200
-- [ ] Dashboard `/metrics` returns 200
-- [ ] Backend `/health` reachable from dashboard browser (CORS OK)
-- [ ] Backend `/approval/queue` reachable from dashboard browser
-- [ ] `NEXT_PUBLIC_API_URL` set to `https://recall-agent-production-4dc7.up.railway.app` on both projects
-- [ ] `NEXT_PUBLIC_DEMO_MANAGER_PASSWORD` set on dashboard project
-- [ ] Real Vercel URLs added to backend CORS allowlist
-- [ ] README "Deploy Status" section updated with live URLs
-- [ ] `docs/ARCHITECTURE.md` deployment placeholders updated
-- [ ] `docs/SUBMISSION.md` deploy placeholders updated
-- [ ] `make public-check` passes
-- [ ] `git diff --check` passes
+- [x] Landing root returns 200
+- [x] Landing `/case` returns 200
+- [x] Landing `/r/cmp_001` returns 200
+- [x] Dashboard root returns 200
+- [x] Dashboard `/metrics` returns 200
+- [x] Backend `/health` reachable from dashboard browser (CORS OK)
+- [x] Backend `/approval/queue` reachable from dashboard browser
+- [x] `NEXT_PUBLIC_API_URL` set to `https://recall-agent-production-4dc7.up.railway.app` on both projects
+- [x] `NEXT_PUBLIC_DEMO_MANAGER_PASSWORD` set on dashboard project
+- [x] Real Vercel URLs added to backend CORS allowlist
+- [x] README "Deploy Status" section updated with live URLs
+- [x] `docs/ARCHITECTURE.md` deployment placeholders updated
+- [x] `docs/SUBMISSION.md` deploy placeholders updated
+- [x] E2E smoke test passed: seed → scan → approve → track → metrics
+- [x] `make public-check` passes
+- [x] `git diff --check` passes

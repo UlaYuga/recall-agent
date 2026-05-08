@@ -1,6 +1,25 @@
 # Demo — Recall
 
-A practical 2-minute demo script for local run-through and screen recording.
+A practical 2-minute demo script for local run-through. Screen recording is optional and can be recorded later.
+
+## E2E Smoke Test (2026-05-09 MSK)
+
+The full hero path was verified against the deployed services without screen recording:
+
+```bash
+# Seed 7 players + 96 events
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/events/seed
+# → {"players":7,"events":96}
+
+# Scan → 7 campaigns
+curl -X POST https://recall-agent-production-4dc7.up.railway.app/agent/scan
+# → {"scanned":7,"created":7,"skipped":0}
+
+# Approve, track play/click/deposit, verify metrics funnel 7→1→1→1→1→1
+# All frontend pages return 200; CORS verified from both Vercel origins.
+```
+
+See [docs/SUBMISSION.md](SUBMISSION.md) for the full smoke test evidence.
 
 ## Local Run Commands
 
@@ -178,8 +197,8 @@ Production URLs verified on 2026-05-09 MSK:
 1. Use `https://recall-agent-production-4dc7.up.railway.app` for backend curl commands.
 2. Use `https://dashboard-ula-lab.vercel.app` for the dashboard walkthrough.
 3. Use `https://landing-ula-lab.vercel.app` for landing and reactivation pages.
-4. Record the demo against the deployed backend and landing.
-5. Upload the demo video to `DEMO_VIDEO_URL_TBD`.
+
+Recording a demo video is optional and can be done later.
 
 ---
 
