@@ -8,8 +8,10 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-21 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 19:34 | Video API after T-20/T-11 PASS. Must use TECH_SPEC contract: `POST /video/generate` body `{campaign_id}`, `GET /video/status/{task_id}`. XLSX not updated. |
-| T-24 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 19:34 | `/delivery/send` API after T-23 PASS. Backend-only delivery orchestration; avoid real Telegram sends for mock chat IDs. XLSX not updated. |
+| T-13 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:02 | Approval queue UI after T-11/T-12 PASS. Design/UI task; must use frontend skills and verify responsive layout. XLSX not updated. |
+| T-25 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:02 | Landing scaffold + RU/EN content after backend baseline. Design/UI task; include lightweight video/poster strategy. XLSX not updated. |
+| T-27 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:02 | Tracking API after T-24/T-05 PASS. Backend-only; no UI. XLSX not updated. |
+| T-31 | active | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:02 | Docker compose + Makefile after T-22/T-25 readiness. Can start backend/local dev compose parts now; coordinate with T-25 if landing changes. XLSX not updated. |
 
 ## Review
 
@@ -52,6 +54,8 @@ Timezone: MSK.
 | T-20 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 19:34 | PASS. Verified Runway video pipeline with safe prompts, credit estimates, task_store persistence, injected stitch boundary, no API routes, `pytest -q` 429 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-30 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 19:34 | PASS. Verified shared `run_scan`, APScheduler lifecycle, manual trigger, idempotency tests, `pytest -q` 429 passed after T-11 landed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-11 | done | Claude Code or DeepSeek V4 Pro, reasoning high | 2026-05-08 19:34 | PASS. Verified approval queue/approve/reject/edit/regenerate API, draft + pending_approval queue behavior, reject reason merge, no schema churn, `pytest -q` 429 passed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-21 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:02 | PASS with coordinator contract fix. Verified `POST /video/generate` body `{campaign_id}` and `GET /video/status/{task_id}`, response includes `task_id`, background pipeline boundary, task/campaign status lookup, `pytest -q` 471 passed, `ruff check`, `make public-check`. XLSX not updated. |
+| T-24 | done | DeepSeek V4 Pro or GPT-5.4, reasoning medium-high | 2026-05-08 20:02 | PASS with coordinator readiness fix. Verified `/delivery/send` orchestration, requires `Campaign.ready` and ready `VideoAsset`, consent/channel gates, mock Telegram guard, Delivery persistence, CRM writeback, `pytest -q` 471 passed, `ruff check`, `make public-check`. XLSX not updated. |
 
 ## Blocked
 
@@ -74,4 +78,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-21`, `T-24`.
+- Current active implementation prompts: `T-13`, `T-25`, `T-27`, `T-31`.

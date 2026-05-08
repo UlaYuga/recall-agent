@@ -141,6 +141,7 @@ class TestGenerateEndpoint:
             resp = client.post("/video/generate", json={"campaign_id": "cmp_test"})
         assert resp.status_code == 200
         body = resp.json()
+        assert body["task_id"] == "cmp_test"
         assert body["campaign_id"] == "cmp_test"
         assert body["status"] == "queued"
 

@@ -147,10 +147,10 @@ async def send(
         raise HTTPException(status_code=404, detail=f"Campaign {body.campaign_id!r} not found")
 
     # ── Readiness gate ────────────────────────────────────────────────────
-    if campaign.status not in (CampaignStatus.ready, CampaignStatus.approved):
+    if campaign.status != CampaignStatus.ready:
         raise HTTPException(
             status_code=409,
-            detail=f"Campaign must be in ready or approved status to send (current: {campaign.status.value})",
+            detail=f"Campaign must be in ready status to send (current: {campaign.status.value})",
         )
 
     # ── Load player & asset ───────────────────────────────────────────────
@@ -163,6 +163,11 @@ async def send(
     asset = session.exec(
         select(VideoAsset).where(VideoAsset.campaign_id == body.campaign_id)
     ).first()
+    if asset is None or asset.status != "ready":
+        raise HTTPException(
+            status_code=409,
+            detail="Campaign video asset must be ready before delivery",
+        )
 
     # ── Generation consent gate ───────────────────────────────────────────
     if not check_generation_consent(player):

@@ -240,6 +240,7 @@ def generate(
     )
 
     return {
+        "task_id": body.campaign_id,
         "campaign_id": body.campaign_id,
         "status": "queued",
     }

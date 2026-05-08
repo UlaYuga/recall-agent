@@ -132,25 +132,12 @@ class TestSendReadinessGate:
         r = client.post("/delivery/send", json={"campaign_id": "cmp_test"})
         assert r.status_code == 409
 
-    @pytest.mark.asyncio
-    async def test_status_approved_allowed(self, session, client):
+    def test_status_approved_rejected(self, session, client):
         _seed(session, campaign_kw={"status": CampaignStatus.approved})
 
-        mock_bot = MagicMock()
-        mock_msg = MagicMock()
-        mock_msg.message_id = 1
-        mock_bot.send_photo = AsyncMock(return_value=mock_msg)
-        mock_bot.send_message = AsyncMock(return_value=mock_msg)
-
-        from app.api.delivery import _build_telegram
-        from app.delivery.telegram_adapter import TelegramAdapter
-
-        app.dependency_overrides[_build_telegram] = lambda: TelegramAdapter(bot=mock_bot)
-        try:
-            r = client.post("/delivery/send", json={"campaign_id": "cmp_test"})
-            assert r.status_code == 200
-        finally:
-            app.dependency_overrides.pop(_build_telegram, None)
+        r = client.post("/delivery/send", json={"campaign_id": "cmp_test"})
+        assert r.status_code == 409
+        assert "ready status" in r.json()["detail"]
 
 
 class TestGenerationConsentBlock:
@@ -410,24 +397,9 @@ class TestCrmWriteback:
 
 
 class TestNoAsset:
-    @pytest.mark.asyncio
-    async def test_send_without_asset(self, session, client):
-        """Send should work even if no VideoAsset exists — adapter handles None asset."""
+    def test_send_without_asset_is_rejected(self, session, client):
         _seed(session, player_kw={"telegram_chat_id": "111", "email": None}, asset=False)
 
-        mock_bot = MagicMock()
-        mock_msg = MagicMock()
-        mock_msg.message_id = 99
-        mock_bot.send_message = AsyncMock(return_value=mock_msg)
-
-        from app.api.delivery import _build_telegram
-        from app.delivery.telegram_adapter import TelegramAdapter
-
-        app.dependency_overrides[_build_telegram] = lambda: TelegramAdapter(bot=mock_bot)
-
-        try:
-            r = client.post("/delivery/send", json={"campaign_id": "cmp_test"})
-            assert r.status_code == 200
-            assert r.json()["overall_status"] == "sent"
-        finally:
-            app.dependency_overrides.pop(_build_telegram, None)
+        r = client.post("/delivery/send", json={"campaign_id": "cmp_test"})
+        assert r.status_code == 409
+        assert "video asset" in r.json()["detail"]
