@@ -9,6 +9,7 @@ import json
 
 import pytest
 
+import app.agent.script_generator as script_generator
 from app.agent.script_generator import generate_script
 from app.models import Player
 
@@ -77,6 +78,12 @@ class _RaisingLLM:
         raise RuntimeError("simulated LLM failure")
 
 
+@pytest.fixture(autouse=True)
+def _disable_default_llm(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep tests offline even when ANTHROPIC_API_KEY exists locally."""
+    monkeypatch.setattr(script_generator, "_make_client", lambda: None)
+
+
 # ── Happy path ─────────────────────────────────────────────────────────────
 
 def test_happy_path_returns_llm_source() -> None:
@@ -128,9 +135,8 @@ def test_happy_path_result_is_script_dict() -> None:
 # ── Fallback: LLM unavailable ──────────────────────────────────────────────
 
 def test_fallback_when_no_llm() -> None:
-    """llm=None with no Anthropic key in settings → fallback."""
+    """llm=None with no default client → fallback."""
     p = _player()
-    # In test environment anthropic_api_key is "" so _make_client() returns None.
     result = generate_script(p, "high_value_dormant", OFFER, llm=None)
     assert result["source"] == "fallback"
 
