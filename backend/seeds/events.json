@@ -1,5 +1,1346 @@
 [
-  {"player_external_id": "br-001", "type": "login", "days_ago": 14},
-  {"player_external_id": "mx-001", "type": "deposit", "days_ago": 9}
+  {
+    "event_id": "evt_0001",
+    "player_id": "p_001",
+    "event_type": "login",
+    "event_at": "2025-08-12T15:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": null,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0002",
+    "player_id": "p_001",
+    "event_type": "deposit",
+    "event_at": "2025-08-12T15:10:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 500,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0003",
+    "player_id": "p_001",
+    "event_type": "bet_placed",
+    "event_at": "2025-08-12T15:12:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 50,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0004",
+    "player_id": "p_001",
+    "event_type": "bet_placed",
+    "event_at": "2025-08-12T15:30:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 25,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0005",
+    "player_id": "p_001",
+    "event_type": "session_end",
+    "event_at": "2025-08-12T16:45:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": null,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0006",
+    "player_id": "p_001",
+    "event_type": "login",
+    "event_at": "2025-09-20T20:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": null,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0007",
+    "player_id": "p_001",
+    "event_type": "deposit",
+    "event_at": "2025-09-20T20:05:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 1000,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0008",
+    "player_id": "p_001",
+    "event_type": "bet_placed",
+    "event_at": "2025-09-20T20:10:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 200,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0009",
+    "player_id": "p_001",
+    "event_type": "session_end",
+    "event_at": "2025-09-20T21:30:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": null,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0010",
+    "player_id": "p_001",
+    "event_type": "login",
+    "event_at": "2026-03-22T18:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": null,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0011",
+    "player_id": "p_001",
+    "event_type": "bet_placed",
+    "event_at": "2026-03-22T18:05:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 300,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0012",
+    "player_id": "p_001",
+    "event_type": "big_win",
+    "event_at": "2026-03-22T19:30:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 3100,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0013",
+    "player_id": "p_001",
+    "event_type": "deposit",
+    "event_at": "2026-04-05T20:44:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 800,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0014",
+    "player_id": "p_001",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-05T20:50:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": 150,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0015",
+    "player_id": "p_001",
+    "event_type": "login",
+    "event_at": "2026-04-08T19:11:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "fruit_slots",
+    "amount": null,
+    "currency": "BRL",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0016",
+    "player_id": "p_002",
+    "event_type": "login",
+    "event_at": "2025-11-02T17:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": null,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0017",
+    "player_id": "p_002",
+    "event_type": "deposit",
+    "event_at": "2025-11-02T17:10:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 300,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0018",
+    "player_id": "p_002",
+    "event_type": "bet_placed",
+    "event_at": "2025-11-02T17:15:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 50,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0019",
+    "player_id": "p_002",
+    "event_type": "session_end",
+    "event_at": "2025-11-02T18:30:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": null,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0020",
+    "player_id": "p_002",
+    "event_type": "login",
+    "event_at": "2025-12-12T21:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": null,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0021",
+    "player_id": "p_002",
+    "event_type": "deposit",
+    "event_at": "2025-12-12T21:05:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 500,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0022",
+    "player_id": "p_002",
+    "event_type": "bet_placed",
+    "event_at": "2025-12-12T21:10:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 75,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0023",
+    "player_id": "p_002",
+    "event_type": "session_end",
+    "event_at": "2025-12-12T22:15:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": null,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0024",
+    "player_id": "p_002",
+    "event_type": "login",
+    "event_at": "2026-02-14T19:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": null,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0025",
+    "player_id": "p_002",
+    "event_type": "bet_placed",
+    "event_at": "2026-02-14T19:05:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 100,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0026",
+    "player_id": "p_002",
+    "event_type": "big_win",
+    "event_at": "2026-02-14T20:15:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 920,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0027",
+    "player_id": "p_002",
+    "event_type": "deposit",
+    "event_at": "2026-03-18T21:07:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 450,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0028",
+    "player_id": "p_002",
+    "event_type": "bet_placed",
+    "event_at": "2026-03-18T21:12:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": 60,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0029",
+    "player_id": "p_002",
+    "event_type": "login",
+    "event_at": "2026-03-29T22:18:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "neon_spins",
+    "amount": null,
+    "currency": "MXN",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0030",
+    "player_id": "p_003",
+    "event_type": "login",
+    "event_at": "2025-09-21T10:00:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": null,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0031",
+    "player_id": "p_003",
+    "event_type": "deposit",
+    "event_at": "2025-09-21T10:10:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 400,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0032",
+    "player_id": "p_003",
+    "event_type": "bet_placed",
+    "event_at": "2025-09-21T10:15:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 200,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0033",
+    "player_id": "p_003",
+    "event_type": "bet_placed",
+    "event_at": "2025-09-21T10:20:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 150,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0034",
+    "player_id": "p_003",
+    "event_type": "session_end",
+    "event_at": "2025-09-21T12:00:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": null,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0035",
+    "player_id": "p_003",
+    "event_type": "login",
+    "event_at": "2026-04-11T14:00:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": null,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0036",
+    "player_id": "p_003",
+    "event_type": "deposit",
+    "event_at": "2026-04-11T14:10:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 800,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0037",
+    "player_id": "p_003",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-11T14:15:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 500,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0038",
+    "player_id": "p_003",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-11T14:25:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 300,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0039",
+    "player_id": "p_003",
+    "event_type": "login",
+    "event_at": "2026-04-12T10:30:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": null,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0040",
+    "player_id": "p_003",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-12T10:35:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 300,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0041",
+    "player_id": "p_003",
+    "event_type": "big_win",
+    "event_at": "2026-04-12T16:00:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 4100,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0042",
+    "player_id": "p_003",
+    "event_type": "sports_event_end",
+    "event_at": "2026-04-12T18:00:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": null,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0043",
+    "player_id": "p_003",
+    "event_type": "login",
+    "event_at": "2026-04-19T18:00:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": null,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0044",
+    "player_id": "p_003",
+    "event_type": "deposit",
+    "event_at": "2026-04-19T18:26:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 600,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0045",
+    "player_id": "p_003",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-19T18:30:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": 300,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0046",
+    "player_id": "p_003",
+    "event_type": "login",
+    "event_at": "2026-04-19T20:40:00Z",
+    "vertical": "sportsbook",
+    "game_category": "football",
+    "game_label": "weekend_accas",
+    "amount": null,
+    "currency": "ZAR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0047",
+    "player_id": "p_004",
+    "event_type": "login",
+    "event_at": "2025-01-10T18:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0048",
+    "player_id": "p_004",
+    "event_type": "deposit",
+    "event_at": "2025-01-10T18:05:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 200,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0049",
+    "player_id": "p_004",
+    "event_type": "bet_placed",
+    "event_at": "2025-01-10T18:10:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 50,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0050",
+    "player_id": "p_004",
+    "event_type": "bet_placed",
+    "event_at": "2025-01-10T18:15:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 30,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0051",
+    "player_id": "p_004",
+    "event_type": "session_end",
+    "event_at": "2025-01-10T19:45:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0052",
+    "player_id": "p_004",
+    "event_type": "login",
+    "event_at": "2025-12-29T20:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0053",
+    "player_id": "p_004",
+    "event_type": "deposit",
+    "event_at": "2025-12-29T20:05:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 300,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0054",
+    "player_id": "p_004",
+    "event_type": "bet_placed",
+    "event_at": "2025-12-29T20:10:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 100,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0055",
+    "player_id": "p_004",
+    "event_type": "big_win",
+    "event_at": "2025-12-30T22:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 1280,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0056",
+    "player_id": "p_004",
+    "event_type": "login",
+    "event_at": "2026-01-28T19:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0057",
+    "player_id": "p_004",
+    "event_type": "deposit",
+    "event_at": "2026-01-28T19:54:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 150,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0058",
+    "player_id": "p_004",
+    "event_type": "bet_placed",
+    "event_at": "2026-01-28T20:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": 50,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0059",
+    "player_id": "p_004",
+    "event_type": "session_end",
+    "event_at": "2026-01-28T21:30:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0060",
+    "player_id": "p_004",
+    "event_type": "login",
+    "event_at": "2026-02-09T13:32:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "classic_roulette",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0061",
+    "player_id": "p_005",
+    "event_type": "login",
+    "event_at": "2026-01-06T08:50:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": null,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0062",
+    "player_id": "p_005",
+    "event_type": "bet_placed",
+    "event_at": "2026-01-06T09:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": 10,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0063",
+    "player_id": "p_005",
+    "event_type": "session_end",
+    "event_at": "2026-01-06T09:30:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": null,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0064",
+    "player_id": "p_005",
+    "event_type": "login",
+    "event_at": "2026-01-06T15:00:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": null,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0065",
+    "player_id": "p_005",
+    "event_type": "bet_placed",
+    "event_at": "2026-01-06T15:05:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": 5,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0066",
+    "player_id": "p_005",
+    "event_type": "session_end",
+    "event_at": "2026-01-06T15:20:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": null,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0067",
+    "player_id": "p_005",
+    "event_type": "login",
+    "event_at": "2026-01-07T16:50:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": null,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0068",
+    "player_id": "p_005",
+    "event_type": "deposit",
+    "event_at": "2026-01-07T17:05:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": 80,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0069",
+    "player_id": "p_005",
+    "event_type": "bet_placed",
+    "event_at": "2026-01-07T17:06:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": 20,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0070",
+    "player_id": "p_005",
+    "event_type": "big_win",
+    "event_at": "2026-01-07T17:10:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": 42,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0071",
+    "player_id": "p_005",
+    "event_type": "login",
+    "event_at": "2026-01-07T17:12:00Z",
+    "vertical": "casino",
+    "game_category": "slots",
+    "game_label": "starter_reels",
+    "amount": null,
+    "currency": "GBP",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0072",
+    "player_id": "p_006",
+    "event_type": "login",
+    "event_at": "2025-10-08T13:00:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0073",
+    "player_id": "p_006",
+    "event_type": "deposit",
+    "event_at": "2025-10-08T13:10:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": 50,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0074",
+    "player_id": "p_006",
+    "event_type": "bet_placed",
+    "event_at": "2025-10-08T13:15:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": 10,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0075",
+    "player_id": "p_006",
+    "event_type": "session_end",
+    "event_at": "2025-10-08T14:00:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0076",
+    "player_id": "p_006",
+    "event_type": "login",
+    "event_at": "2026-02-08T18:00:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0077",
+    "player_id": "p_006",
+    "event_type": "bet_placed",
+    "event_at": "2026-02-08T18:05:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": 20,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0078",
+    "player_id": "p_006",
+    "event_type": "big_win",
+    "event_at": "2026-02-08T20:30:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": 240,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0079",
+    "player_id": "p_006",
+    "event_type": "deposit",
+    "event_at": "2026-03-03T20:16:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": 100,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0080",
+    "player_id": "p_006",
+    "event_type": "bet_placed",
+    "event_at": "2026-03-03T20:20:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": 15,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0081",
+    "player_id": "p_006",
+    "event_type": "session_end",
+    "event_at": "2026-03-03T21:00:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0082",
+    "player_id": "p_006",
+    "event_type": "login",
+    "event_at": "2026-03-16T18:09:00Z",
+    "vertical": "casino",
+    "game_category": "bingo",
+    "game_label": "daily_rooms",
+    "amount": null,
+    "currency": "EUR",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0083",
+    "player_id": "p_007",
+    "event_type": "login",
+    "event_at": "2026-03-01T20:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": null,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0084",
+    "player_id": "p_007",
+    "event_type": "deposit",
+    "event_at": "2026-03-01T20:05:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 5000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0085",
+    "player_id": "p_007",
+    "event_type": "bet_placed",
+    "event_at": "2026-03-01T20:10:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 2000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0086",
+    "player_id": "p_007",
+    "event_type": "big_win",
+    "event_at": "2026-03-01T21:30:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 8000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0087",
+    "player_id": "p_007",
+    "event_type": "login",
+    "event_at": "2026-04-09T21:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": null,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0088",
+    "player_id": "p_007",
+    "event_type": "deposit",
+    "event_at": "2026-04-09T21:05:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 6000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0089",
+    "player_id": "p_007",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-09T21:10:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 3000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0090",
+    "player_id": "p_007",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-09T21:25:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 2000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0091",
+    "player_id": "p_007",
+    "event_type": "big_win",
+    "event_at": "2026-04-10T23:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 14600,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0092",
+    "player_id": "p_007",
+    "event_type": "withdrawal",
+    "event_at": "2026-04-11T14:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 10000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0093",
+    "player_id": "p_007",
+    "event_type": "login",
+    "event_at": "2026-04-24T20:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": null,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0094",
+    "player_id": "p_007",
+    "event_type": "deposit",
+    "event_at": "2026-04-24T21:58:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 4000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0095",
+    "player_id": "p_007",
+    "event_type": "bet_placed",
+    "event_at": "2026-04-24T22:00:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": 1000,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  },
+  {
+    "event_id": "evt_0096",
+    "player_id": "p_007",
+    "event_type": "login",
+    "event_at": "2026-04-26T07:34:00Z",
+    "vertical": "casino",
+    "game_category": "live_casino",
+    "game_label": "high_limit_tables",
+    "amount": null,
+    "currency": "NOK",
+    "metadata": {
+      "source": "mock_event_bus_v1"
+    }
+  }
 ]
-

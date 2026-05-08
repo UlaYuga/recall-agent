@@ -12,7 +12,7 @@ This repository is safe to keep public only if real credentials never enter git.
 Required local variables:
 
 ```env
-RUNWAY_API_KEY=replace_me
+RUNWAYML_API_SECRET=replace_me
 ANTHROPIC_API_KEY=replace_me
 OPENAI_API_KEY=replace_me
 TELEGRAM_BOT_TOKEN=replace_me

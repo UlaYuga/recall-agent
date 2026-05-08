@@ -290,7 +290,7 @@ Any uplift above 5.2% relative = positive ROI. Published benchmarks suggest 20-1
 **Role:** Core video generation (motion graphics clips + TTS voiceover)
 **Model:** Gen-4.5 image_to_video, gen4_image_turbo for start frames, eleven_multilingual_v2 for RU voice
 **Integration:** Official Python SDK `runwayml` >= 3.0
-**Authentication:** RUNWAY_API_KEY in .env
+**Authentication:** RUNWAYML_API_SECRET in .env
 **Rate limits:** Unknown for hackathon tier. Mitigation: async polling, retry with backoff, pre-generate fallback
 **Cost:** 50K credits allocated. ~480-600 credits per video. Estimated capacity: 83-104 videos.
 **Fallback vendor:** Kling API, Luma Dream Machine, Pika 2.0 (all accessible via VideoProviderProtocol interface)

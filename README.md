@@ -90,7 +90,7 @@ The scaffold intentionally starts with safe placeholders. Fill `.env` with real 
 
 ## Key Environment Variables
 
-- `RUNWAY_API_KEY`
+- `RUNWAYML_API_SECRET`
 - `ANTHROPIC_API_KEY`
 - `OPENAI_API_KEY`
 - `TELEGRAM_BOT_TOKEN`

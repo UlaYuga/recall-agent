@@ -39,7 +39,7 @@ fi
 
 sensitive_assignment_matches="$(
   git grep -nIE \
-    '(^|[^A-Z0-9_])(RUNWAY_API_KEY|RUNWAYML_API_SECRET|ANTHROPIC_API_KEY|OPENAI_API_KEY|TELEGRAM_BOT_TOKEN|DEMO_PASSWORD|WEBHOOK_SECRET|DATABASE_URL)[[:space:]]*[:=][[:space:]]*["'\'']?[^"'\''[:space:]#]+' \
+    '(^|[^A-Z0-9_])(RUNWAYML_API_SECRET|ANTHROPIC_API_KEY|OPENAI_API_KEY|TELEGRAM_BOT_TOKEN|DEMO_PASSWORD|WEBHOOK_SECRET|DATABASE_URL)[[:space:]]*[:=][[:space:]]*["'\'']?[^"'\''[:space:]#]+' \
     -- . \
     ':!.git' \
     ':!scripts/check-public-repo-safety.sh' || true

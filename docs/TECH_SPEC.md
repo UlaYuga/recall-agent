@@ -21,7 +21,7 @@
 
 recall-agent/
 ├── README.md                          # описание проекта, quickstart
-├── .env.example                       # все ключи (RUNWAY_API_KEY, TELEGRAM_BOT_TOKEN, ANTHROPIC_API_KEY, BASE_URL)
+├── .env.example                       # все ключи (RUNWAYML_API_SECRET, TELEGRAM_BOT_TOKEN, ANTHROPIC_API_KEY, BASE_URL)
 ├── .gitignore                         # python, node, .env, *.mp4, *.wav, .venv
 ├── docker-compose.yml                 # backend + dashboard + landing локально
 ├── Makefile                           # make dev, make seed, make demo

@@ -1,5 +1,18 @@
 # Comeback Decisions Log
 
+## 2026-05-08 - RUNWAYML_API_SECRET as env name
+
+Решение: используем `RUNWAYML_API_SECRET` вместо legacy Runway env name.
+
+Причина: это default, который Runway Python SDK подхватывает автоматически
+без передачи `api_key=` аргументом. Подтверждено в `docs.dev.runwayml.com/guides/setup`
+и в SDK README на `github.com/runwayml/sdk-python`.
+
+Импакт: T-04 `config.py` читает `RUNWAYML_API_SECRET`. T-15 `client.py` инициализирует
+`RunwayML()` без аргументов. `.env.example` содержит только `RUNWAYML_API_SECRET` как Runway secret.
+
+XLSX не правим, в задачах T-04 и T-15 prompt для Codex явно указывает целевое имя.
+
 ## Career goal
 
 Project is optimized for portfolio transition from Senior Content Producer to PM/Delivery Manager in international iGaming.
