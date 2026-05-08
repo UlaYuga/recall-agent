@@ -8,9 +8,8 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| T-06 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:41 | Seed loader for `backend/seeds/players.json` + `backend/seeds/events.json` after T-05 PASS. Must flatten rich B-01/B-02 into T-05 models and be idempotent. XLSX not updated. |
-| T-15 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:45 | Runway client after T-04 PASS. Thin SDK wrapper only; use `RUNWAYML_API_SECRET`; no pipeline/business logic. XLSX not updated. |
-| T-12 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:45 | Dashboard scaffold after T-02 PASS. Frontend/design task routed to Claude Code. Scaffold only; do not implement approval queue/detail. XLSX not updated. |
+| T-07 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | Deterministic classifier after T-06 PASS. Must use seeded rich Player/Event data and explicit `now`; no LLM. XLSX not updated. |
+| T-16 | active | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | Prompt safety + B-04 visual hints wiring after T-15 PASS and B-04 PASS. No credit/task/video pipeline work. XLSX not updated. |
 
 ## Review
 
@@ -36,6 +35,9 @@ Timezone: MSK.
 | T-03 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:04 | PASS. Verified from clean remote clone after Claude Code pushed `eae02b0`: `init_db(bind=...)` creates current SQLModel tables, `get_session()` yields usable `Session`, `pytest -q` 6 passed, `ruff check` passed, `make public-check` passed, no legacy Runway env-name hits. XLSX not updated. |
 | T-04 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning medium-high | 2026-05-08 15:35 | PASS. Verified `RUNWAYML_API_SECRET` and `DEMO_MANAGER_PASSWORD` settings mapping, `pytest -q` 8 passed, `ruff check` passed, `make public-check` passed, no legacy Runway env-name hits. Remaining `DEMO_PASSWORD` hits are historical notes or `.claude` sandbox only. XLSX not updated. |
 | T-05 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:41 | PASS. Verified rich SQLModel schema aligned to B-01/B-02, model tests for all required tables/player/event metadata, classifier adjusted to `last_login_at`, `pytest -q` 12 passed, `ruff check` passed, `make public-check` passed, no legacy Runway env-name hits. XLSX not updated. |
+| T-06 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | PASS. Verified seed loader loads 7 players and 96 events, idempotency tests pass, `python seeds/seed.py` prints seeded counts, `pytest -q` included in 31 passed, `ruff check` passed, `make public-check` passed. XLSX not updated. |
+| T-15 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | PASS. Verified thin Runway SDK wrapper, `RUNWAYML_API_SECRET` validation, mocked SDK tests, `runwayml.omit` exists, no real Runway calls, `pytest -q` included in 31 passed, `ruff check` passed, `make public-check` passed. XLSX not updated. |
+| T-12 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 15:54 | PASS with coordinator accessibility fix. Verified dashboard scaffold build, API helper, auth gate, app shell, route stubs, no T-13/T-14 wiring, `npm run build` passed. Added skip link and password input `name` before closing. XLSX not updated. |
 
 ## Blocked
 
@@ -58,4 +60,4 @@ Timezone: MSK.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Current active implementation prompts: `T-06`, `T-15`, `T-12`.
+- Current active implementation prompts: `T-07`, `T-16`.
