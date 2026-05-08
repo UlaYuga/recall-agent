@@ -60,6 +60,7 @@ Timezone: MSK.
 | T-25 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | PASS. Verified landing EN/RU content, responsive build, Cyrillic-safe font setup, lightweight placeholder media strategy, `landing npm run build`, `make public-check`. XLSX not updated. |
 | T-13 | done | Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high | 2026-05-08 20:24 | PASS. Verified approval queue UI, filters, table, side panel, edit/reject/approve/regenerate actions, backend reject-reason fix, `dashboard npm run build`, backend `pytest -q` 491 passed, `ruff check`, `make public-check`. XLSX not updated. |
 | T-34 | done | Kimi K2.6 / documentation executor, reasoning medium | 2026-05-08 20:47 | PASS with coordinator overclaim fix. Verified README/ARCHITECTURE/DEMO/SUBMISSION draft docs, deploy URLs kept as TBD placeholders, no code/XLSX touched by task, `make public-check`, `git diff --check`. Corrected docs to mark T-28 metrics dashboard as pending. XLSX not updated. |
+| T-32 | done | Claude Code / Railway deploy, reasoning high | 2026-05-08 23:23 | PASS. Verified Railway backend deploy at `https://recall-agent-production-4dc7.up.railway.app`: `/health` HTTP 200 `{"status":"ok"}`, `/docs` HTTP 200, `/openapi.json` title `Recall API` version `0.1.0`; `docs/DEPLOY_RAILWAY.md` records URL/env checklist. `make public-check` passed. Local `docker build` not rerun because Docker daemon is unavailable, but deployed service is live. XLSX not updated. |
 
 ## Blocked
 
