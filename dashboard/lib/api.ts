@@ -217,3 +217,45 @@ export const delivery = {
     return api.post<DeliveryResult>('/delivery/send', { campaign_id: campaignId });
   },
 };
+
+// ── Metrics types ───────────────────────────────────────────────────────────
+
+export interface MetricsFunnel {
+  scanned: number;
+  approved: number;
+  delivered: number;
+  played: number;
+  clicked: number;
+  deposited: number;
+}
+
+export interface MetricsKPIs {
+  total_players: number;
+  campaigns_created: number;
+  approval_rate: number;
+  videos_delivered: number;
+  avg_ctr: number;
+  reactivation_rate: number;
+}
+
+export interface MetricsCohortRow {
+  cohort: string;
+  count: number;
+  approved: number;
+  delivered: number;
+  converted: number;
+}
+
+export interface MetricsDashboard {
+  funnel: MetricsFunnel;
+  kpis: MetricsKPIs;
+  cohort_breakdown: MetricsCohortRow[];
+}
+
+// ── Metrics API ─────────────────────────────────────────────────────────────
+
+export const metrics = {
+  dashboard(): Promise<MetricsDashboard> {
+    return api.get<MetricsDashboard>('/metrics/dashboard');
+  },
+};
