@@ -8,7 +8,7 @@ Timezone: MSK.
 
 | ID | Status | Tool / agent | Issued at MSK | Notes |
 |---|---|---|---|---|
-| - | - | - | - | None. |
+| T-02 | active | ChatGPT #1 (Codex), GPT-5.3-Codex, reasoning medium-high | 2026-05-08 14:40 | FastAPI app + CORS + health after T-01 PASS. Align existing `backend/app/main.py`; do not start T-03/T-04. XLSX not updated. |
 
 ## Review
 
@@ -48,7 +48,8 @@ Timezone: MSK.
 - Initial pre-15:00 executor gate was lifted by Alexander at 2026-05-08 14:29 MSK because tokens became available. T-01 may be issued early after T-00a/T-00b PASS.
 - Coordinator writes full self-contained prompts. Executor chats should not be asked to extract their own task from XLSX.
 - Every issued prompt must include target LLM/account, exact model/version when known, recommended reasoning mode (low/medium/high), and a short reason for that routing.
+- Routing rule from Alexander: send Claude Code the backend tasks with deeper integration risk and all design/UI/frontend tasks. Default design routing: Claude Code, latest available Claude Sonnet/Opus coding model, reasoning high for UI architecture/complex flows and medium-high for narrow polish tasks. Still include frontend-design, frontend-ui-engineering, web-design-guidelines, and Cyrillic typography requirements in the prompt when relevant.
 - Git rule from 2026-05-08 14:33 MSK: after coordinator review marks a task `PASS`, run fresh verification, stage only task-scoped files plus status docs, commit with the task ID in the message, then push to the tracked remote branch. Do not commit/push `FAIL`, `BLOCKED`, unrelated dirty files, real secrets, XLSX edits, or generated media unless Alexander explicitly asks.
 - Alexander sends each executor result back to the coordinator chat. The next dependent prompt must be adapted to the actual result, changed files, verification output and open issues.
 - Do not spend work on full prompt packs for future dependent tasks. Prepare only the next task that is ready to issue now, plus minimal notes needed to adapt the following task after review.
-- Next implementation prompt: `T-02` after T-01 PASS review.
+- Current active implementation prompt: `T-02`.
