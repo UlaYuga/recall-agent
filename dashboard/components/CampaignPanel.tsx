@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import {
   X,
@@ -12,6 +13,7 @@ import {
   AlertCircle,
   ChevronDown,
   ChevronUp,
+  ExternalLink,
 } from 'lucide-react';
 import {
   approval,
@@ -52,16 +54,30 @@ function parseReasoning(json: string | null): string[] {
   }
 }
 
+function parseRejectReason(json: string | null): string | null {
+  if (!json) return null;
+  try {
+    const d = JSON.parse(json) as unknown;
+    if (d && typeof d === 'object' && !Array.isArray(d)) {
+      const r = (d as Record<string, unknown>).reject_reason;
+      if (r != null) return String(r);
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
 function fmtDate(iso: string | null): string {
   if (!iso) return '—';
   try {
-    return new Date(iso).toLocaleDateString('en-GB', {
+    return new Intl.DateTimeFormat('en-GB', {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-    });
+    }).format(new Date(iso));
   } catch {
     return iso;
   }
@@ -69,7 +85,7 @@ function fmtDate(iso: string | null): string {
 
 function fmtNum(n: number | null | undefined): string {
   if (n == null) return '—';
-  return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  return new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(n);
 }
 
 const SCENE_LABELS: Record<string, string> = {
@@ -98,12 +114,20 @@ const STATUS_LABEL: Record<string, string> = {
   approved: 'Approved',
   rejected: 'Rejected',
   generating: 'Generating',
-  generation_failed: 'Failed',
+  generation_failed: 'Gen. Failed',
   ready: 'Ready',
-  ready_blocked_delivery: 'Blocked',
+  ready_blocked_delivery: 'Delivery Blocked',
   delivered: 'Delivered',
   converted: 'Converted',
 };
+
+const REJECT_OPTIONS = [
+  { value: 'too_aggressive', label: 'Too aggressive' },
+  { value: 'wrong_offer', label: 'Wrong offer' },
+  { value: 'wrong_tone', label: 'Wrong tone' },
+  { value: 'data_issue', label: 'Data issue' },
+  { value: 'other', label: 'Other…' },
+] as const;
 
 const EDITABLE = new Set(['draft', 'pending_approval']);
 
@@ -157,7 +181,6 @@ export interface CampaignPanelProps {
 // ── Component ─────────────────────────────────────────────────────────────
 
 export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) {
-  // Local copy so we can update display after mutations without refetching
   const [local, setLocal] = useState<QueueItem>(item);
   useEffect(() => setLocal(item), [item]);
 
@@ -166,14 +189,14 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
   const [editedCta, setEditedCta] = useState('');
 
   const [rejectMode, setRejectMode] = useState(false);
-  const [rejectReason, setRejectReason] = useState('');
+  const [rejectKey, setRejectKey] = useState('');
+  const [rejectNotes, setRejectNotes] = useState('');
 
   const [actionError, setActionError] = useState<string | null>(null);
 
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  // Focus close button on mount; close on Escape
   useEffect(() => {
     closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
@@ -189,9 +212,10 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
   const offer = parseOffer(local.offer_json);
   const script = parseScript(local.script_json);
   const reasoning = parseReasoning(local.reasoning_json);
+  const rejectReason = local.status === 'rejected' ? parseRejectReason(local.reasoning_json) : null;
   const p = local.player;
 
-  // ── Enter edit mode ───────────────────────────────────────────────────────
+  // ── Edit mode ─────────────────────────────────────────────────────────────
   function enterEdit() {
     if (!script) return;
     setEditedScenes(script.scenes.map((s) => ({ ...s })));
@@ -205,6 +229,19 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
     setEditedScenes([]);
     setActionError(null);
   }
+
+  function cancelReject() {
+    setRejectMode(false);
+    setRejectKey('');
+    setRejectNotes('');
+    setActionError(null);
+  }
+
+  // Effective reason sent to the API
+  const effectiveRejectReason =
+    rejectKey === 'other' ? rejectNotes.trim() || 'other' : rejectKey;
+  const canSubmitReject =
+    Boolean(rejectKey) && (rejectKey !== 'other' || Boolean(rejectNotes.trim()));
 
   // ── Mutations ─────────────────────────────────────────────────────────────
   const approveM = useMutation({
@@ -223,16 +260,14 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
   });
 
   const rejectM = useMutation({
-    mutationFn: () => approval.reject(local.campaign_id, rejectReason.trim()),
+    mutationFn: () => approval.reject(local.campaign_id, effectiveRejectReason),
     onSuccess: (res) => {
       setLocal((prev) => ({
         ...prev,
         status: res.status as QueueItem['status'],
         updated_at: res.updated_at,
       }));
-      setRejectMode(false);
-      setRejectReason('');
-      setActionError(null);
+      cancelReject();
       onMutated();
       onClose();
     },
@@ -369,6 +404,16 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
 
           {/* Classifier Reasoning */}
           <Section title="Classifier Reasoning">
+            {/* Reject reason banner */}
+            {rejectReason && (
+              <div className="mb-3 flex items-start gap-2 text-xs text-red-700 bg-red-50 border border-red-200 rounded px-3 py-2">
+                <XCircle size={13} className="flex-none mt-0.5" aria-hidden="true" />
+                <span>
+                  Rejected — <span className="font-medium">{rejectReason}</span>
+                </span>
+              </div>
+            )}
+
             {reasoning.length === 0 ? (
               <p className="text-xs text-gray-400 italic">No reasoning recorded.</p>
             ) : (
@@ -501,7 +546,8 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
                 ))}
                 <div className="pt-2 border-t border-gray-100 space-y-1">
                   <p className="text-xs text-gray-500 leading-relaxed">
-                    <span className="font-medium">Voiceover</span> (~{script.estimated_duration_sec}s · {script.tone}):{' '}
+                    <span className="font-medium">Voiceover</span>{' '}
+                    (~{script.estimated_duration_sec}s · {script.tone}):{' '}
                     <span className="text-gray-700">{script.full_voiceover_text}</span>
                   </p>
                   <p className="text-xs text-gray-500">
@@ -533,25 +579,44 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
           {/* Reject form */}
           {rejectMode && (
             <div className="space-y-2">
-              <label
-                htmlFor="reject-reason"
-                className="block text-xs font-medium text-gray-700"
-              >
-                Reject reason <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                id="reject-reason"
-                value={rejectReason}
-                onChange={(e) => setRejectReason(e.target.value)}
-                rows={2}
-                placeholder="too_aggressive | wrong_offer | wrong_tone | data_issue | other…"
-                className="w-full text-xs border border-gray-200 rounded px-2.5 py-1.5 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
-                autoFocus
-              />
+              <div className="space-y-1.5">
+                <label htmlFor="reject-reason-select" className="block text-xs font-medium text-gray-700">
+                  Reject reason <span className="text-red-500" aria-hidden="true">*</span>
+                </label>
+                <select
+                  id="reject-reason-select"
+                  value={rejectKey}
+                  onChange={(e) => setRejectKey(e.target.value)}
+                  className="w-full text-xs border border-gray-200 rounded px-2.5 py-1.5 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-400"
+                  autoFocus
+                >
+                  <option value="">Select a reason…</option>
+                  {REJECT_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {rejectKey === 'other' && (
+                <div className="space-y-1">
+                  <label htmlFor="reject-notes" className="block text-xs font-medium text-gray-700">
+                    Details
+                  </label>
+                  <textarea
+                    id="reject-notes"
+                    value={rejectNotes}
+                    onChange={(e) => setRejectNotes(e.target.value)}
+                    rows={2}
+                    placeholder="Describe the issue…"
+                    className="w-full text-xs border border-gray-200 rounded px-2.5 py-1.5 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
+                  />
+                </div>
+              )}
               <div className="flex gap-2">
                 <button
                   type="button"
-                  disabled={!rejectReason.trim() || rejectM.isPending}
+                  disabled={!canSubmitReject || rejectM.isPending}
                   onClick={() => {
                     setActionError(null);
                     rejectM.mutate();
@@ -567,11 +632,7 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    setRejectMode(false);
-                    setRejectReason('');
-                    setActionError(null);
-                  }}
+                  onClick={cancelReject}
                   className="px-3 py-1.5 rounded text-xs font-medium border border-gray-200 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors"
                 >
                   Cancel
@@ -611,9 +672,9 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
 
           {/* Primary actions row */}
           {!editMode && !rejectMode && (
-            <div className="flex gap-2 flex-wrap">
+            <div className="space-y-2">
               {canEdit ? (
-                <>
+                <div className="flex gap-2 flex-wrap">
                   <button
                     type="button"
                     disabled={isBusy}
@@ -672,15 +733,29 @@ export function CampaignPanel({ item, onClose, onMutated }: CampaignPanelProps) 
                     )}
                     Regenerate
                   </button>
-                </>
+                </div>
               ) : (
-                <p className="text-xs text-gray-500 italic">
-                  Campaign is{' '}
-                  <span className="font-medium">
-                    {STATUS_LABEL[local.status] ?? local.status}
-                  </span>{' '}
-                  — no further actions available.
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-xs text-gray-500">
+                    Status:{' '}
+                    <span
+                      className={[
+                        'inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium',
+                        STATUS_CHIP[local.status] ?? 'bg-gray-100 text-gray-600',
+                      ].join(' ')}
+                    >
+                      {STATUS_LABEL[local.status] ?? local.status}
+                    </span>
+                  </p>
+                  <Link
+                    href={`/campaigns/${local.campaign_id}`}
+                    onClick={onClose}
+                    className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 hover:underline focus:outline-none focus:ring-1 focus:ring-blue-500 rounded whitespace-nowrap"
+                  >
+                    Open workspace
+                    <ExternalLink size={11} aria-hidden="true" />
+                  </Link>
+                </div>
               )}
             </div>
           )}

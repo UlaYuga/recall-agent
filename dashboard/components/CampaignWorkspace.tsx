@@ -494,7 +494,7 @@ export function CampaignWorkspace({ campaignId }: CampaignWorkspaceProps) {
           className="flex-none mt-0.5 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 focus:outline-none focus:underline"
         >
           <ArrowLeft size={14} aria-hidden="true" />
-          Back
+          Back to Queue
         </Link>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">

@@ -17,11 +17,12 @@ const ALL_COHORTS = [
   'lapsed_loyal',
 ] as const;
 
-type StatusTab = null | 'approved' | 'rejected';
+type StatusTab = null | 'all' | 'approved' | 'rejected';
 
 // null → no param → API returns draft+pending_approval (queue default)
 const STATUS_TABS: { value: StatusTab; label: string }[] = [
-  { value: null, label: 'Queue' },
+  { value: null, label: 'Pending' },
+  { value: 'all', label: 'All' },
   { value: 'approved', label: 'Approved' },
   { value: 'rejected', label: 'Rejected' },
 ];

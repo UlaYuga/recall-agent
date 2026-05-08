@@ -31,9 +31,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         Skip to main content
       </a>
 
-      {/* Sidebar */}
+      {/* Sidebar — hidden on mobile, visible on sm+ */}
       <aside
-        className="w-52 flex-none bg-gray-900 flex flex-col"
+        className="hidden sm:flex w-52 flex-none bg-gray-900 flex-col"
         aria-label="Sidebar"
       >
         {/* Brand */}
@@ -87,31 +87,68 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="flex-none h-12 bg-white border-b border-gray-200 flex items-center px-6 gap-4">
+        <header className="flex-none h-12 bg-white border-b border-gray-200 flex items-center px-4 sm:px-6 gap-3">
+          {/* Brand mark — only visible on mobile where sidebar is hidden */}
+          <Link
+            href="/"
+            className="sm:hidden flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded flex-none"
+            aria-label="Recall home"
+          >
+            <Zap size={14} className="text-blue-500 flex-none" aria-hidden="true" />
+            <span className="font-semibold text-gray-900 text-sm">Recall</span>
+          </Link>
+
           <h1 className="text-sm font-semibold text-gray-900 flex-1 truncate">
             {getPageTitle(pathname)}
           </h1>
+
           <div className="flex items-center gap-4 flex-none">
             <span
-              className="inline-flex items-center gap-1.5 text-xs text-gray-500"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs text-gray-500"
               aria-label="Backend status"
             >
               <span className="w-2 h-2 rounded-full bg-gray-300 flex-none" aria-hidden="true" />
               Backend
             </span>
-            <span className="text-xs text-gray-500">CRM Manager</span>
+            <span className="text-xs text-gray-500 hidden sm:inline">CRM Manager</span>
           </div>
         </header>
 
-        {/* Content */}
+        {/* Content — add bottom padding on mobile so content clears the bottom nav */}
         <main
           id="main-content"
-          className="flex-1 overflow-auto p-6"
+          className="flex-1 overflow-auto p-4 sm:p-6 pb-20 sm:pb-6"
           tabIndex={-1}
         >
           {children}
         </main>
       </div>
+
+      {/* Mobile bottom navigation — only visible below sm breakpoint */}
+      <nav
+        className="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-gray-900 border-t border-gray-800 flex"
+        aria-label="Mobile navigation"
+      >
+        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+          const active = pathname === href || pathname.startsWith(href + '/');
+          return (
+            <Link
+              key={href}
+              href={href}
+              aria-current={active ? 'page' : undefined}
+              className={[
+                'flex-1 flex flex-col items-center gap-0.5 py-2.5 text-center',
+                'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-400',
+                'transition-colors',
+                active ? 'text-white' : 'text-gray-400',
+              ].join(' ')}
+            >
+              <Icon size={18} aria-hidden="true" className="flex-none" />
+              <span className="text-[10px] font-medium">{label}</span>
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 }

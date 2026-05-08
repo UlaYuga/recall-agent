@@ -195,6 +195,21 @@ class TestQueue:
         assert r.status_code == 200
         assert r.json() == []
 
+    def test_status_all_returns_every_campaign(self, session, client):
+        _seed_player(session, player_id="p1")
+        _seed_campaign(session, campaign_id="c1", player_id="p1", status=CampaignStatus.draft)
+        _seed_campaign(session, campaign_id="c2", player_id="p1", status=CampaignStatus.approved)
+        _seed_campaign(session, campaign_id="c3", player_id="p1", status=CampaignStatus.delivered)
+
+        r = client.get("/approval/queue", params={"status": "all"})
+        assert r.status_code == 200
+        ids = {item["campaign_id"] for item in r.json()}
+        assert ids == {"c1", "c2", "c3"}
+
+    def test_invalid_status_returns_422(self, client):
+        r = client.get("/approval/queue", params={"status": "bogus_status"})
+        assert r.status_code == 422
+
 
 # ── Approve ─────────────────────────────────────────────────────────────────
 

@@ -136,20 +136,31 @@ def queue(
         Optional[float], Query(ge=0, le=100, description="Minimum risk score")
     ] = None,
     status: Annotated[
-        Optional[CampaignStatus],
-        Query(description="Filter by campaign status (default: draft + pending_approval)"),
+        Optional[str],
+        Query(
+            description=(
+                "Filter by campaign status. "
+                "Pass 'all' to return every campaign regardless of status. "
+                "Default: draft + pending_approval."
+            )
+        ),
     ] = None,
     session: Annotated[Session, Depends(get_session)] = None,
 ) -> list[dict[str, Any]]:
-    """Return campaigns that are pending CRM manager review.
+    """Return campaigns for CRM manager review.
 
     By default returns campaigns in **draft** or **pending_approval** status.
-    Filters narrow by cohort, minimum risk_score, or a specific status.
-    Each row includes a lightweight player profile for the approval side-panel.
+    Pass ``status=all`` to retrieve every campaign (useful for the full pipeline view).
+    Pass any valid :class:`CampaignStatus` value to filter to that status.
     """
-    # Build base query — default to reviewable statuses.
-    if status is not None:
-        q = select(Campaign).where(Campaign.status == status)
+    if status == "all":
+        q = select(Campaign)
+    elif status is not None:
+        try:
+            status_enum = CampaignStatus(status)
+        except ValueError:
+            raise HTTPException(status_code=422, detail=f"Invalid status value: {status!r}")
+        q = select(Campaign).where(Campaign.status == status_enum)
     else:
         q = select(Campaign).where(
             or_(
