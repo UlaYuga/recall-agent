@@ -2,8 +2,8 @@
 
 ## Project and Service
 
-- Railway project: pending CLI link verification.
-- Railway service: backend service connected to the GitHub repository.
+- Railway project: `proactive-abundance`.
+- Railway service: `recall-agent`.
 - Repository path: `backend/`.
 - Config file: `backend/railway.toml`.
 
@@ -12,7 +12,7 @@ returns `Project not found`, and `railway whoami` fails locally on DNS lookup fo
 `backboard.railway.app`. Do not run `railway init` for this repo unless a new
 Railway project is intentionally required.
 
-If the service is configured from the Railway dashboard, set:
+The service is configured from the Railway dashboard with:
 
 - Root Directory: `backend`
 - Config File Path: `/backend/railway.toml`
@@ -21,9 +21,11 @@ If the service is configured from the Railway dashboard, set:
 
 ## Backend URL
 
-- Public backend URL: pending Railway deployment verification.
+- Public backend URL: `https://recall-agent-production-4dc7.up.railway.app`
 - Health endpoint: `GET /health`
 - API docs: `GET /docs`
+- Verified on 2026-05-08: `/health` returned `HTTP 200` with `{"status":"ok"}`;
+  `/docs` returned `HTTP 200`.
 
 After deployment, verify:
 
